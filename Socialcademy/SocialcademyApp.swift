@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Firebase
-import FirebaseFirestoreSwift
 
 @main
 struct SocialcademyApp: App {
