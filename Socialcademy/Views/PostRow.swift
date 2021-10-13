@@ -33,6 +33,11 @@ struct PostRow: View {
                 FavoriteButton(isFavorite: viewModel.isFavorite, action: {
                     viewModel.toggleFavorite()
                 })
+                Button {
+                    viewModel.route = .comments
+                } label: {
+                    Label("Comments", systemImage: "text.bubble")
+                }
                 Spacer()
                 if viewModel.canDelete {
                     DeleteButton(action: {
@@ -54,6 +59,11 @@ struct PostRow: View {
         .background {
             NavigationLink(tag: Route.author, selection: $viewModel.route) {
                 PostsList(viewModel: viewModel.makeAuthorPostViewModel())
+            } label: {
+                EmptyView()
+            }
+            NavigationLink(tag: Route.comments, selection: $viewModel.route) {
+                CommentsList(viewModel: viewModel.makeCommentViewModel())
             } label: {
                 EmptyView()
             }

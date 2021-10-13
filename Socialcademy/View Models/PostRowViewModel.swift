@@ -15,7 +15,7 @@ class PostRowViewModel: ObservableObject {
     }
     
     enum Route {
-        case author
+        case author, comments
     }
     
     @Published var route: Route?
@@ -59,6 +59,13 @@ class PostRowViewModel: ObservableObject {
     func makeAuthorPostViewModel() -> PostViewModel {
         guard let viewModel = parent?.makeAuthorPostViewModel(for: post.author) else {
             preconditionFailure("Cannot create PostViewModel for author’s posts because the parent PostViewModel is missing")
+        }
+        return viewModel
+    }
+    
+    func makeCommentViewModel() -> CommentViewModel {
+        guard let viewModel = parent?.makeCommentViewModel(for: post) else {
+            preconditionFailure("Cannot create CommentViewModel because the parent PostViewModel is missing")
         }
         return viewModel
     }

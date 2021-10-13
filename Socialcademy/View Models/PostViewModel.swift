@@ -44,6 +44,10 @@ class PostViewModel: ObservableObject {
         return PostViewModel(postService: postService, filter: .author(author), isRootView: false)
     }
     
+    func makeCommentViewModel(for post: Post) -> CommentViewModel {
+        return CommentViewModel(commentService: CommentService(post: post, user: postService.user))
+    }
+    
     func submit(_ post: Post) async throws {
         try await postService.create(post)
         posts.value?.insert(post, at: 0)
