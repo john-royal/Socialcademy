@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct Post: Hashable, Equatable, Codable {
+struct Post: Identifiable, Hashable, Equatable, Codable {
     var title: String
     var content: String
     var authorName: String
+    var id = UUID()
     var timestamp = Date()
     
     func contains(_ string: String) -> Bool {

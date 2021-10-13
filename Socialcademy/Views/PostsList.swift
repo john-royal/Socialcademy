@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: - PostsList
+
 struct PostsList: View {
     @StateObject var viewModel = PostViewModel()
     
@@ -31,9 +33,9 @@ struct PostsList: View {
                         message: "There are no posts here."
                     )
                 case let .loaded(posts):
-                    List(posts, id: \.title) { post in
+                    List(posts) { post in
                         if searchText.isEmpty || post.contains(searchText) {
-                            PostRow(post: post)
+                            PostRow(post: post, deleteAction: viewModel.makeDeleteAction(for: post))
                         }
                     }
                     .searchable(text: $searchText)

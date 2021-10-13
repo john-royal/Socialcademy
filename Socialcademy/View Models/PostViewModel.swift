@@ -31,11 +31,17 @@ class PostViewModel: ObservableObject {
         }
     }
     
+    func makeDeleteAction(for post: Post) -> () async throws -> Void {
+        return { [weak self] in
+            try await self?.postService.delete(post)
+            self?.posts.value?.removeAll { $0.id == post.id }
+        }
+    }
+    
     func makeSubmitPostAction() -> (Post) async throws -> Void {
         return { [weak self] post in
-            guard let self = self else { return }
-            try await self.postService.create(post)
-            self.posts.value?.insert(post, at: 0)
+            try await self?.postService.create(post)
+            self?.posts.value?.insert(post, at: 0)
         }
     }
 }

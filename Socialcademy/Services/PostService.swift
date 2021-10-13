@@ -14,6 +14,7 @@ import FirebaseFirestoreSwift
 protocol PostServiceProtocol {
     func fetchPosts() async throws -> [Post]
     func create(_ post: Post) async throws
+    func delete(_ post: Post) async throws
 }
 
 // MARK: - PostServiceStub
@@ -27,13 +28,15 @@ struct PostServiceStub: PostServiceProtocol {
     }
     
     func create(_ post: Post) async throws {}
+    
+    func delete(_ post: Post) async throws {}
 }
 #endif
 
 // MARK: - PostService
 
 struct PostService: PostServiceProtocol {
-    let postsReference = Firestore.firestore().collection("posts_v1")
+    let postsReference = Firestore.firestore().collection("posts_v2")
     
     func fetchPosts() async throws -> [Post] {
         let snapshot = try await postsReference
@@ -45,24 +48,10 @@ struct PostService: PostServiceProtocol {
     }
     
     func create(_ post: Post) async throws {
-        try await postsReference.addDocument(from: post)
+        try await postsReference.document(post.id.uuidString).setData(from: post)
     }
-}
-
-// MARK: - Private
-
-private extension CollectionReference {
-    func addDocument<T: Encodable>(from value: T) async throws {
-        return try await withCheckedThrowingContinuation { continuation in
-            // Force try is used because this method only throws for encoding errors (other errors are passed to the completion handler).
-            // Output is ignored because we don’t have any use for the document reference.
-            _ = try! addDocument(from: value) { error in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-                continuation.resume()
-            }
-        }
+    
+    func delete(_ post: Post) async throws {
+        try await postsReference.document(post.id.uuidString).delete()
     }
 }
