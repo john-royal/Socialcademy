@@ -12,21 +12,23 @@ import SwiftUI
 struct NewPostForm: View {
     let submitAction: (Post) async throws -> Void
     
-    @State private var post = Post(title: "", content: "", authorName: "")
+    @State private var title = ""
+    @State private var content = ""
+    
     @State private var didSubmit = false
     @State private var hasError = false
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var authViewModel: AuthViewModel
     
     var body: some View {
         NavigationView {
             Form {
-                Section {
-                    TextField("Title", text: $post.title)
-                    TextField("Author Name", text: $post.authorName)
+                Section("Title") {
+                    TextField("Title", text: $title)
                 }
                 Section("Content") {
-                    TextEditor(text: $post.content)
+                    TextEditor(text: $content)
                         .multilineTextAlignment(.leading)
                 }
                 SubmitButton(action: handleSubmit)
@@ -44,6 +46,7 @@ struct NewPostForm: View {
         Task {
             didSubmit = true
             do {
+                let post = makePost()
                 try await submitAction(post)
                 dismiss()
             } catch {
@@ -52,6 +55,13 @@ struct NewPostForm: View {
             }
             didSubmit = false
         }
+    }
+    
+    private func makePost() -> Post {
+        guard let user = authViewModel.user else {
+            preconditionFailure("Cannot create post without a signed in user")
+        }
+        return Post(title: title, content: content, author: user)
     }
 }
 
@@ -85,8 +95,11 @@ private extension NewPostForm {
 
 // MARK: - Preview
 
+#if DEBUG
 struct NewPostForm_Previews: PreviewProvider {
     static var previews: some View {
         NewPostForm(submitAction: { _ in })
+            .environmentObject(AuthViewModel.preview())
     }
 }
+#endif

@@ -64,7 +64,7 @@ struct PostServiceStub: PostServiceProtocol {
 // MARK: - PostService
 
 struct PostService: PostServiceProtocol {
-    let postsReference = Firestore.firestore().collection("posts_v3")
+    let postsReference = Firestore.firestore().collection("posts_v4")
     
     func fetchPosts() async throws -> [Post] {
         let snapshot = try await postsReference
