@@ -24,7 +24,12 @@ class PostRowViewModel: ObservableObject {
         self.parent = parent
     }
     
+    var canDelete: Bool {
+        return parent?.canDelete(post) ?? false
+    }
+    
     func delete() {
+        precondition(canDelete)
         Task {
             do {
                 try await parent?.delete(post)

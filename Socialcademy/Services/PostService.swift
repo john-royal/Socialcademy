@@ -12,12 +12,21 @@ import FirebaseFirestoreSwift
 // MARK: - PostServiceProtocol
 
 protocol PostServiceProtocol {
+    var user: User { get }
+    
     func fetchPosts() async throws -> [Post]
+    func fetchPosts(by author: User) async throws -> [Post]
     func fetchFavoritePosts() async throws -> [Post]
     func create(_ post: Post) async throws
     func delete(_ post: Post) async throws
     func favorite(_ post: Post) async throws
     func unfavorite(_ post: Post) async throws
+}
+
+extension PostServiceProtocol {
+    func canDelete(_ post: Post) -> Bool {
+        user.id == post.author.id
+    }
 }
 
 // MARK: - PostFilter
@@ -42,6 +51,7 @@ extension PostServiceProtocol {
 #if DEBUG
 struct PostServiceStub: PostServiceProtocol {
     var state: Loadable<[Post]> = .loaded([Post.testPost])
+    var user = User.testUser
     
     func fetchPosts() async throws -> [Post] {
         return try await state.stub()

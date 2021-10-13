@@ -28,9 +28,11 @@ struct PostRow: View {
                     viewModel.toggleFavorite()
                 })
                 Spacer()
-                DeleteButton(action: {
-                    viewModel.delete()
-                })
+                if viewModel.canDelete {
+                    DeleteButton(action: {
+                        viewModel.delete()
+                    })
+                }
                 Text(viewModel.timestamp.formatted(date: .abbreviated, time: .omitted))
                     .font(.caption)
                     .fontWeight(.medium)

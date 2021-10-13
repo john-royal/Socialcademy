@@ -42,6 +42,10 @@ class PostViewModel: ObservableObject {
         posts.value?.insert(post, at: 0)
     }
     
+    func canDelete(_ post: Post) -> Bool {
+        return postService.canDelete(post)
+    }
+    
     func delete(_ post: Post) async throws {
         try await postService.delete(post)
         posts.value?.removeAll { $0.id == post.id }
