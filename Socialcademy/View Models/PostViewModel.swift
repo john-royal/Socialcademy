@@ -12,9 +12,11 @@ class PostViewModel: ObservableObject {
     @Published var posts: Loadable<[Post]> = .loading
     
     private let postService: PostServiceProtocol
+    private let filter: PostFilter?
     
-    init(postService: PostServiceProtocol = PostService()) {
+    init(postService: PostServiceProtocol = PostService(), filter: PostFilter? = .none) {
         self.postService = postService
+        self.filter = filter
     }
     
     func fetchPosts() {
@@ -23,7 +25,7 @@ class PostViewModel: ObservableObject {
         }
         Task {
             do {
-                posts = .loaded(try await postService.fetchPosts())
+                posts = .loaded(try await postService.fetchPosts(matching: filter))
             } catch {
                 print("[PostViewModel] Cannot load posts: \(error.localizedDescription)")
                 posts = .error(error)

@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: - PostsList
 
 struct PostsList: View {
-    @StateObject var viewModel = PostViewModel()
+    @StateObject var viewModel: PostViewModel
     
     @State private var searchText = ""
     @State private var showNewPostForm = false
