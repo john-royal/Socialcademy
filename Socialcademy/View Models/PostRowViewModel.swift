@@ -10,12 +10,17 @@ import Foundation
 @MainActor
 @dynamicMemberLookup
 class PostRowViewModel: ObservableObject {
-    @Published var hasError = false
-    @Published private var post: Post
-    
     subscript<T>(dynamicMember keyPath: KeyPath<Post, T>) -> T {
         post[keyPath: keyPath]
     }
+    
+    enum Route {
+        case author
+    }
+    
+    @Published var route: Route?
+    @Published var hasError = false
+    @Published private var post: Post
     
     private weak var parent: PostViewModel?
     
@@ -49,5 +54,12 @@ class PostRowViewModel: ObservableObject {
                 hasError = true
             }
         }
+    }
+    
+    func makeAuthorPostViewModel() -> PostViewModel {
+        guard let viewModel = parent?.makeAuthorPostViewModel(for: post.author) else {
+            preconditionFailure("Cannot create PostViewModel for author’s posts because the parent PostViewModel is missing")
+        }
+        return viewModel
     }
 }

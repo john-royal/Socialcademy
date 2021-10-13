@@ -11,12 +11,15 @@ import Foundation
 class PostViewModel: ObservableObject {
     @Published var posts: Loadable<[Post]> = .loading
     
-    private let postService: PostServiceProtocol
-    private let filter: PostFilter?
+    let filter: PostFilter?
+    let isRootView: Bool
     
-    init(postService: PostServiceProtocol, filter: PostFilter? = .none) {
+    private let postService: PostServiceProtocol
+    
+    init(postService: PostServiceProtocol, filter: PostFilter? = .none, isRootView: Bool = true) {
         self.postService = postService
         self.filter = filter
+        self.isRootView = isRootView
     }
     
     func fetchPosts() {
@@ -35,6 +38,10 @@ class PostViewModel: ObservableObject {
     
     func makePostRowViewModel(for post: Post) -> PostRowViewModel {
         return PostRowViewModel(post: post, parent: self)
+    }
+    
+    func makeAuthorPostViewModel(for author: User) -> PostViewModel {
+        return PostViewModel(postService: postService, filter: .author(author), isRootView: false)
     }
     
     func submit(_ post: Post) async throws {

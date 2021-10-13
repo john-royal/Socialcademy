@@ -13,12 +13,18 @@ import SwiftUI
 struct PostRow: View {
     @StateObject var viewModel: PostRowViewModel
     
+    private typealias Route = PostRowViewModel.Route
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(viewModel.author.name)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.gray)
+            Button {
+                viewModel.route = .author
+            } label: {
+                Text(viewModel.author.name)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.gray)
+            }
             Text(viewModel.title)
                 .font(.title3)
                 .fontWeight(.semibold)
@@ -41,9 +47,16 @@ struct PostRow: View {
             .buttonStyle(.plain)
             .foregroundColor(.gray)
         }
-        .padding(.vertical)
+        .padding()
         .alert("Error", isPresented: $viewModel.hasError, actions: {}) {
             Text("Sorry, something went wrong.")
+        }
+        .background {
+            NavigationLink(tag: Route.author, selection: $viewModel.route) {
+                PostsList(viewModel: viewModel.makeAuthorPostViewModel())
+            } label: {
+                EmptyView()
+            }
         }
     }
 }
@@ -95,9 +108,8 @@ private extension PostRow {
 #if DEBUG
 struct PostRow_Previews: PreviewProvider {
     static var previews: some View {
-        List {
-            PostRow(viewModel: PostRowViewModel(post: Post.testPost, parent: PostViewModel(postService: PostServiceStub())))
-        }
+        PostRow(viewModel: PostRowViewModel(post: Post.testPost, parent: PostViewModel(postService: PostServiceStub())))
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif

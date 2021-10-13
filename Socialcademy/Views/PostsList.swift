@@ -12,11 +12,40 @@ import SwiftUI
 struct PostsList: View {
     @StateObject var viewModel: PostViewModel
     
-    @State private var searchText = ""
     @State private var showNewPostForm = false
     
     var body: some View {
-        NavigationView {
+        if viewModel.isRootView {
+            NavigationView {
+                InternalListView(viewModel: viewModel)
+                    .toolbar {
+                        Button {
+                            showNewPostForm = true
+                        } label: {
+                            Label("New Post", systemImage: "square.and.pencil")
+                        }
+                    }
+                    .sheet(isPresented: $showNewPostForm) {
+                        NewPostForm(submitAction: { post in
+                            try await viewModel.submit(post)
+                        })
+                    }
+            }
+        } else {
+            InternalListView(viewModel: viewModel)
+        }
+    }
+}
+
+// MARK: - InternalListView
+
+private extension PostsList {
+    struct InternalListView: View {
+        @StateObject var viewModel: PostViewModel
+        
+        @State private var searchText = ""
+        
+        var body: some View {
             Group {
                 switch viewModel.posts {
                 case .loading:
@@ -33,31 +62,35 @@ struct PostsList: View {
                         message: "There are no posts here."
                     )
                 case let .loaded(posts):
-                    List(posts) { post in
-                        if searchText.isEmpty || post.contains(searchText) {
-                            PostRow(viewModel: viewModel.makePostRowViewModel(for: post))
+                    ScrollView {
+                        ForEach(posts) { post in
+                            if searchText.isEmpty || post.contains(searchText) {
+                                PostRow(viewModel: viewModel.makePostRowViewModel(for: post))
+                                if post != posts.last {
+                                    Divider()
+                                }
+                            }
                         }
                     }
                     .searchable(text: $searchText)
                     .animation(.default, value: posts)
                 }
             }
-            .navigationTitle("Socialcademy")
-            .toolbar {
-                Button {
-                    showNewPostForm = true
-                } label: {
-                    Label("New Post", systemImage: "square.and.pencil")
-                }
-            }
-            .sheet(isPresented: $showNewPostForm) {
-                NewPostForm(submitAction: { post in
-                    try await viewModel.submit(post)
-                })
+            .navigationTitle(title)
+            .onAppear {
+                viewModel.fetchPosts()
             }
         }
-        .onAppear {
-            viewModel.fetchPosts()
+        
+        private var title: String {
+            switch viewModel.filter {
+            case .none:
+                return "Socialcademy"
+            case .favorites:
+                return "Favorites"
+            case let .author(author):
+                return "\(author.name)’s Posts"
+            }
         }
     }
 }
