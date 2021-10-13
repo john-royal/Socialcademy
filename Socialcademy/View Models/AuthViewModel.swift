@@ -40,6 +40,13 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func makePostViewModel(filter: PostFilter? = nil) -> PostViewModel {
+        guard let user = user else {
+            preconditionFailure("Cannot display posts without a signed-in user")
+        }
+        return PostViewModel(postService: PostService(user: user), filter: filter)
+    }
+    
     private func performTask(action: @escaping () async throws -> Void) {
         Task {
             isLoading = true

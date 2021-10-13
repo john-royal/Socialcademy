@@ -14,7 +14,7 @@ class PostViewModel: ObservableObject {
     private let postService: PostServiceProtocol
     private let filter: PostFilter?
     
-    init(postService: PostServiceProtocol = PostService(), filter: PostFilter? = .none) {
+    init(postService: PostServiceProtocol, filter: PostFilter? = .none) {
         self.postService = postService
         self.filter = filter
     }

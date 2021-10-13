@@ -9,20 +9,20 @@ import SwiftUI
 
 @MainActor
 struct MainTabView: View {
-    @EnvironmentObject private var authViewModel: AuthViewModel
+    @EnvironmentObject private var viewModel: AuthViewModel
     
     var body: some View {
         TabView {
-            PostsList(viewModel: PostViewModel())
+            PostsList(viewModel: viewModel.makePostViewModel())
                 .tabItem {
                     Label("Posts", systemImage: "list.dash")
                 }
-            PostsList(viewModel: PostViewModel(filter: .favorites))
+            PostsList(viewModel: viewModel.makePostViewModel(filter: .favorites))
                 .tabItem {
                     Label("Favorites", systemImage: "heart")
                 }
             Button("Sign Out", action: {
-                authViewModel.signOut()
+                viewModel.signOut()
             })
                 .tabItem {
                     Label("Profile", systemImage: "person")

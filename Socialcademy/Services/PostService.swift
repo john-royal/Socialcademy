@@ -74,48 +74,81 @@ struct PostServiceStub: PostServiceProtocol {
 // MARK: - PostService
 
 struct PostService: PostServiceProtocol {
+    let user: User
     let postsReference = Firestore.firestore().collection("posts_v4")
+    let favoritesReference = Firestore.firestore().collection("favorites")
     
     func fetchPosts() async throws -> [Post] {
-        let snapshot = try await postsReference
+        let favorites = try await fetchFavorites()
+        return try await postsReference
             .order(by: "timestamp", descending: true)
-            .getDocuments()
-        return snapshot.documents.compactMap { document in
-            try! document.data(as: Post.self)
-        }
+            .getDocuments(as: Post.self)
+            .map {
+                Post($0, isFavorite: favorites.contains($0.id))
+            }
     }
     
     func fetchFavoritePosts() async throws -> [Post] {
-        let snapshot = try await postsReference
-            .order(by: "timestamp", descending: true)
-            .whereField("isFavorite", isEqualTo: true)
-            .getDocuments()
-        return snapshot.documents.compactMap { document in
-            try! document.data(as: Post.self)
+        let favorites = try await fetchFavorites()
+        if favorites.isEmpty {
+            // Skip the Firestore query and return an empty array of posts.
+            // This is a workaround for Firestore crashing when performing a where-in query with no allowed values.
+            return []
         }
+        return try await postsReference
+            .order(by: "timestamp", descending: true)
+            .whereField("id", in: favorites.map(\.uuidString))
+            .getDocuments(as: Post.self)
+            .map {
+                Post($0, isFavorite: true)
+            }
     }
     
     func create(_ post: Post) async throws {
-        try await documentReference(for: post).setData(from: post)
+        try await postsReference.document(post.id.uuidString).setData(from: post)
     }
     
     func delete(_ post: Post) async throws {
-        try await documentReference(for: post).delete()
+        try await postsReference.document(post.id.uuidString).delete()
     }
     
     func favorite(_ post: Post) async throws {
-        var post = post
-        post.isFavorite = true
-        try await documentReference(for: post).setData(from: post, merge: true)
+        let favorite = Favorite(postID: post.id, userID: user.id)
+        try await favoritesReference.addDocument(from: favorite)
     }
     
     func unfavorite(_ post: Post) async throws {
-        var post = post
-        post.isFavorite = false
-        try await documentReference(for: post).setData(from: post, merge: true)
+        let snapshot = try await favoritesReference
+            .whereField("postID", isEqualTo: post.id.uuidString)
+            .whereField("userID", isEqualTo: user.id)
+            .getDocuments()
+        assert(snapshot.count == 1)
+        guard let documentReference = snapshot.documents.first?.reference else { return }
+        try await documentReference.delete()
+    }
+}
+
+private extension PostService {
+    func fetchFavorites() async throws -> [Post.ID] {
+        return try await favoritesReference
+            .whereField("userID", isEqualTo: user.id)
+            .getDocuments(as: Favorite.self)
+            .map(\.postID)
     }
     
-    private func documentReference(for post: Post) -> DocumentReference {
-        return postsReference.document(post.id.uuidString)
+    struct Favorite: Codable {
+        let postID: Post.ID
+        let userID: User.ID
+    }
+}
+
+private extension Post {
+    init(_ post: Post, isFavorite: Bool) {
+        self.title = post.title
+        self.content = post.content
+        self.author = post.author
+        self.id = post.id
+        self.timestamp = post.timestamp
+        self.isFavorite = isFavorite
     }
 }
