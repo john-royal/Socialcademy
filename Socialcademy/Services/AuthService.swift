@@ -52,6 +52,5 @@ private extension User {
     init(from user: FirebaseAuth.User) {
         self.id = user.uid
         self.name = user.displayName ?? "User \(user.uid)"
-        self.imageURL = user.photoURL
     }
 }
