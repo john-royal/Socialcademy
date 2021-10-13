@@ -134,5 +134,6 @@ struct AuthView_Previews: PreviewProvider {
     static var previews: some View {
         AuthView.SignInView(action: { _, _ in }, createAccountView: EmptyView.init)
         AuthView.CreateAccountView(action: { _, _, _ in })
+        AuthView(viewModel: AuthViewModel.preview(user: User.testUser))
     }
 }

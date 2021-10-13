@@ -16,6 +16,26 @@ protocol AuthServiceProtocol {
     func signOut() async throws
 }
 
+#if DEBUG
+struct AuthServiceStub: AuthServiceProtocol {
+    var user: User? = User.testUser
+    
+    func createAccount(name: String, email: String, password: String) async throws -> User {
+        return User(id: email, name: email)
+    }
+    
+    func currentUser() -> User? {
+        user
+    }
+    
+    func signIn(email: String, password: String) async throws -> User {
+        return User(id: email, name: email)
+    }
+    
+    func signOut() async throws {}
+}
+#endif
+
 // MARK: - AuthService
 
 struct AuthService: AuthServiceProtocol {

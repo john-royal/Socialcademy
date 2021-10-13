@@ -54,3 +54,11 @@ class AuthViewModel: ObservableObject {
         }
     }
 }
+
+#if DEBUG
+extension AuthViewModel {
+    static func preview(user: User? = User.testUser) -> AuthViewModel {
+        return AuthViewModel(authService: AuthServiceStub(user: user))
+    }
+}
+#endif
