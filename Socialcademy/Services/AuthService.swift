@@ -14,6 +14,7 @@ protocol AuthServiceProtocol {
     func currentUser() -> User?
     func signIn(email: String, password: String) async throws -> User
     func signOut() async throws
+    func update(_ user: User) async throws
 }
 
 #if DEBUG
@@ -33,6 +34,8 @@ struct AuthServiceStub: AuthServiceProtocol {
     }
     
     func signOut() async throws {}
+    
+    func update(_ user: User) async throws {}
 }
 #endif
 
@@ -66,11 +69,21 @@ struct AuthService: AuthServiceProtocol {
     func signOut() throws {
         try auth.signOut()
     }
+    
+    func update(_ user: User) async throws {
+        guard let changeRequest = auth.currentUser?.createProfileChangeRequest() else {
+            preconditionFailure()
+        }
+        changeRequest.displayName = user.name
+        changeRequest.photoURL = user.imageURL
+        try await changeRequest.commitChanges()
+    }
 }
 
 private extension User {
     init(from user: FirebaseAuth.User) {
         self.id = user.uid
         self.name = user.displayName ?? "User \(user.uid)"
+        self.imageURL = user.photoURL
     }
 }

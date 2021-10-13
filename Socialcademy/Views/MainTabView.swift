@@ -21,12 +21,12 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Favorites", systemImage: "heart")
                 }
-            Button("Sign Out", action: {
-                viewModel.signOut()
-            })
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
+            if let user = viewModel.user {
+                ProfileView(user: user)
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
+            }
         }
     }
 }

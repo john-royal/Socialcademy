@@ -17,14 +17,9 @@ struct PostRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Button {
+            PostAuthorView(author: viewModel.author, action: {
                 viewModel.route = .author
-            } label: {
-                Text(viewModel.author.name)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.gray)
-            }
+            })
             if let imageURL = viewModel.imageURL {
                 PostImageView(url: imageURL)
             }
@@ -70,6 +65,29 @@ struct PostRow: View {
             } label: {
                 EmptyView()
             }
+        }
+    }
+}
+
+// MARK: - PostAuthorView
+
+private extension PostRow {
+    struct PostAuthorView: View {
+        let author: User
+        let action: () -> Void
+        
+        var body: some View {
+            Button(action: action) {
+                HStack {
+                    UserImageView(author)
+                        .frame(width: 40, height: 40)
+                    Text(author.name)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                }
+                .accessibilityElement(children: .combine)
+            }
+            .buttonStyle(.plain)
         }
     }
 }

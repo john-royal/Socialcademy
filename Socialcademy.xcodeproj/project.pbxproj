@@ -38,6 +38,8 @@
 		521638932717540800852F55 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 521638922717540800852F55 /* FirebaseFirestore */; };
 		521638952717540800852F55 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 521638942717540800852F55 /* FirebaseFirestoreSwift-Beta */; };
 		521638972717540800852F55 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 521638962717540800852F55 /* FirebaseStorage */; };
+		5216389927175A1100852F55 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216389827175A1100852F55 /* ProfileView.swift */; };
+		5216389B27175B5E00852F55 /* UserImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216389A27175B5E00852F55 /* UserImageView.swift */; };
 		52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */; };
 		52D6F9DF270CDBC2009B9E39 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DE270CDBC2009B9E39 /* MainTabView.swift */; };
 		52D6F9E1270CDBC3009B9E39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */; };
@@ -72,6 +74,8 @@
 		52163887271750B400852F55 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		521638892717513E00852F55 /* NewPostFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostFormViewModel.swift; sourceTree = "<group>"; };
 		5216388B271751CB00852F55 /* Storage+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storage+Images.swift"; sourceTree = "<group>"; };
+		5216389827175A1100852F55 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		5216389A27175B5E00852F55 /* UserImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageView.swift; sourceTree = "<group>"; };
 		52D6F9D9270CDBC2009B9E39 /* Socialcademy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socialcademy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialcademyApp.swift; sourceTree = "<group>"; };
 		52D6F9DE270CDBC2009B9E39 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 				52163879271749B900852F55 /* CommentsList.swift */,
 				5216387B271749CE00852F55 /* CommentRow.swift */,
 				5216388327174B7700852F55 /* NewCommentForm.swift */,
+				5216389827175A1100852F55 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				5216385C271680C500852F55 /* EmptyListView.swift */,
 				52163887271750B400852F55 /* ImagePickerView.swift */,
 				521638662716A71600852F55 /* ProminentButtonStyle.swift */,
+				5216389A27175B5E00852F55 /* UserImageView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -304,8 +310,10 @@
 				5216387C271749CE00852F55 /* CommentRow.swift in Sources */,
 				52D6F9DF270CDBC2009B9E39 /* MainTabView.swift in Sources */,
 				521638782717497A00852F55 /* Comment.swift in Sources */,
+				5216389B27175B5E00852F55 /* UserImageView.swift in Sources */,
 				521638762716B15F00852F55 /* AuthViewModel.swift in Sources */,
 				5216385D271680C500852F55 /* EmptyListView.swift in Sources */,
+				5216389927175A1100852F55 /* ProfileView.swift in Sources */,
 				521638692716B0A400852F55 /* User.swift in Sources */,
 				5216387E271749EB00852F55 /* CommentViewModel.swift in Sources */,
 				5216385F2716878A00852F55 /* Firestore+Extensions.swift in Sources */,

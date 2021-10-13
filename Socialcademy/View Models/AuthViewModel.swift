@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 @MainActor
 class AuthViewModel: ObservableObject {
@@ -15,6 +16,7 @@ class AuthViewModel: ObservableObject {
     @Published var isLoading = false
     
     private let authService: AuthServiceProtocol
+    private let imageAdapter = ImageStorageAdapter(namespace: "users")
     
     init(authService: AuthServiceProtocol = AuthService()) {
         self.user = authService.currentUser()
@@ -37,6 +39,29 @@ class AuthViewModel: ObservableObject {
         performTask { [weak self] in
             try await self?.authService.signOut()
             self?.user = nil
+        }
+    }
+    
+    func updateProfileImage(_ image: UIImage) {
+        performTask { [weak self] in
+            guard var user = self?.user,
+                  let imageURL = try await self?.imageAdapter.createImage(image, named: user.id) else {
+                      return
+                  }
+            user.imageURL = imageURL
+            try await self?.authService.update(user)
+            self?.user = user
+        }
+    }
+    
+    func removeProfileImage() {
+        performTask { [weak self] in
+            guard var user = self?.user else { return }
+            try await self?.imageAdapter.deleteImage(named: user.id)
+            
+            user.imageURL = nil
+            try await self?.authService.update(user)
+            self?.user = user
         }
     }
     
