@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Post: Hashable, Equatable {
+struct Post: Hashable, Equatable, Codable {
     var title: String
     var content: String
     var authorName: String

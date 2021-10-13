@@ -35,7 +35,8 @@ struct PostsList: View {
         }
     }
     
-    private func submitPost(_ post: Post) {
+    private func submitPost(_ post: Post) async throws {
+        try await PostService().create(post)
         posts.insert(post, at: 0)
     }
 }
