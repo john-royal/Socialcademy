@@ -51,13 +51,16 @@ private extension AuthView {
                     SecureField("Password", text: $password)
                         .textContentType(.password)
                 } button: {
-                    Button("Sign In", action: {
-                        action(email, password)
-                    })
+                    Button("Sign In", action: signIn)
                 } footer: {
                     NavigationLink("Create Account", destination: createAccountView())
                 }
+                .onSubmit(signIn)
             }
+        }
+        
+        private func signIn() {
+            action(email, password)
         }
     }
 }
@@ -84,14 +87,17 @@ private extension AuthView {
                 SecureField("Password", text: $password)
                     .textContentType(.newPassword)
             } button: {
-                Button("Create Account", action: {
-                    action(name, email, password)
-                })
+                Button("Create Account", action: createAccount)
             } footer: {
                 Button("Sign In", action: {
                     dismiss()
                 })
             }
+            .onSubmit(createAccount)
+        }
+        
+        private func createAccount() {
+            action(name, email, password)
         }
     }
 }
