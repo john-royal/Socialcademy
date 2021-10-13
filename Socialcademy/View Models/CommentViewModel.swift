@@ -46,6 +46,7 @@ class CommentViewModel: ObservableObject {
     
     func delete(_ comment: Comment) async throws {
         try await commentService.delete(comment)
+        comments.value?.removeAll { $0.id == comment.id }
     }
     
     func makeCommentRowViewModel(for comment: Comment) -> CommentRowViewModel {
