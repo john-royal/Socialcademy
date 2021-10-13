@@ -9,13 +9,47 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct PostService {
+// MARK: - PostServiceProtocol
+
+protocol PostServiceProtocol {
+    func fetchPosts() async throws -> [Post]
+    func create(_ post: Post) async throws
+}
+
+// MARK: - PostServiceStub
+
+#if DEBUG
+struct PostServiceStub: PostServiceProtocol {
+    var state: Loadable<[Post]> = .loaded([Post.testPost])
+    
+    func fetchPosts() async throws -> [Post] {
+        return try await state.stub()
+    }
+    
+    func create(_ post: Post) async throws {}
+}
+#endif
+
+// MARK: - PostService
+
+struct PostService: PostServiceProtocol {
     let postsReference = Firestore.firestore().collection("posts_v1")
+    
+    func fetchPosts() async throws -> [Post] {
+        let snapshot = try await postsReference
+            .order(by: "timestamp", descending: true)
+            .getDocuments()
+        return snapshot.documents.compactMap { document in
+            try! document.data(as: Post.self)
+        }
+    }
     
     func create(_ post: Post) async throws {
         try await postsReference.addDocument(from: post)
     }
 }
+
+// MARK: - Private
 
 private extension CollectionReference {
     func addDocument<T: Encodable>(from value: T) async throws {
