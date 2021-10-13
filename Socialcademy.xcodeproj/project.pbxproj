@@ -16,6 +16,7 @@
 		5216385A27167FE200852F55 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216385927167FE200852F55 /* Loadable.swift */; };
 		5216385D271680C500852F55 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216385C271680C500852F55 /* EmptyListView.swift */; };
 		5216385F2716878A00852F55 /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216385E2716878A00852F55 /* Firestore+Extensions.swift */; };
+		5216386127168EB600852F55 /* PostRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216386027168EB600852F55 /* PostRowViewModel.swift */; };
 		522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBD270E2D720079BD1D /* FirebaseAnalytics */; };
 		522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBF270E2D720079BD1D /* FirebaseFirestore */; };
 		522D5EC2270E2D720079BD1D /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */; };
@@ -37,6 +38,7 @@
 		5216385927167FE200852F55 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		5216385C271680C500852F55 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		5216385E2716878A00852F55 /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
+		5216386027168EB600852F55 /* PostRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRowViewModel.swift; sourceTree = "<group>"; };
 		52D6F9D9270CDBC2009B9E39 /* Socialcademy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socialcademy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialcademyApp.swift; sourceTree = "<group>"; };
 		52D6F9DE270CDBC2009B9E39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				5216385627167FC800852F55 /* PostViewModel.swift */,
+				5216386027168EB600852F55 /* PostRowViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				5216385727167FC800852F55 /* PostViewModel.swift in Sources */,
 				5216384527153DF900852F55 /* Post.swift in Sources */,
 				5216385A27167FE200852F55 /* Loadable.swift in Sources */,
+				5216386127168EB600852F55 /* PostRowViewModel.swift in Sources */,
 				52D6F9DF270CDBC2009B9E39 /* ContentView.swift in Sources */,
 				5216385D271680C500852F55 /* EmptyListView.swift in Sources */,
 				5216385F2716878A00852F55 /* Firestore+Extensions.swift in Sources */,

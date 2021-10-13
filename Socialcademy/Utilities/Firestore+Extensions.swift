@@ -10,10 +10,10 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension DocumentReference {
-    func setData<T: Encodable>(from value: T) async throws {
+    func setData<T: Encodable>(from value: T, merge: Bool = false) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             // Force try is used because this method only throws for encoding errors (other errors are passed to the completion handler).
-            try! setData(from: value) { error in
+            try! setData(from: value, merge: merge) { error in
                 if let error = error {
                     continuation.resume(throwing: error)
                     return

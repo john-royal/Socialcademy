@@ -31,17 +31,24 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func makeDeleteAction(for post: Post) -> () async throws -> Void {
-        return { [weak self] in
-            try await self?.postService.delete(post)
-            self?.posts.value?.removeAll { $0.id == post.id }
-        }
+    func makePostRowViewModel(for post: Post) -> PostRowViewModel {
+        return PostRowViewModel(post: post, parent: self)
     }
     
-    func makeSubmitPostAction() -> (Post) async throws -> Void {
-        return { [weak self] post in
-            try await self?.postService.create(post)
-            self?.posts.value?.insert(post, at: 0)
-        }
+    func submit(_ post: Post) async throws {
+        try await postService.create(post)
+        posts.value?.insert(post, at: 0)
+    }
+    
+    func delete(_ post: Post) async throws {
+        try await postService.delete(post)
+        posts.value?.removeAll { $0.id == post.id }
+    }
+    
+    func setFavorite(_ post: Post, to isFavorite: Bool) async throws {
+        try await isFavorite ? postService.favorite(post) : postService.unfavorite(post)
+        
+        guard let i = posts.value?.firstIndex(of: post) else { return }
+        posts.value?[i].isFavorite = isFavorite
     }
 }

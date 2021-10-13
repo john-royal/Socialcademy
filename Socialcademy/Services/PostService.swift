@@ -15,6 +15,8 @@ protocol PostServiceProtocol {
     func fetchPosts() async throws -> [Post]
     func create(_ post: Post) async throws
     func delete(_ post: Post) async throws
+    func favorite(_ post: Post) async throws
+    func unfavorite(_ post: Post) async throws
 }
 
 // MARK: - PostServiceStub
@@ -30,13 +32,17 @@ struct PostServiceStub: PostServiceProtocol {
     func create(_ post: Post) async throws {}
     
     func delete(_ post: Post) async throws {}
+    
+    func favorite(_ post: Post) async throws {}
+    
+    func unfavorite(_ post: Post) async throws {}
 }
 #endif
 
 // MARK: - PostService
 
 struct PostService: PostServiceProtocol {
-    let postsReference = Firestore.firestore().collection("posts_v2")
+    let postsReference = Firestore.firestore().collection("posts_v3")
     
     func fetchPosts() async throws -> [Post] {
         let snapshot = try await postsReference
@@ -48,10 +54,26 @@ struct PostService: PostServiceProtocol {
     }
     
     func create(_ post: Post) async throws {
-        try await postsReference.document(post.id.uuidString).setData(from: post)
+        try await documentReference(for: post).setData(from: post)
     }
     
     func delete(_ post: Post) async throws {
-        try await postsReference.document(post.id.uuidString).delete()
+        try await documentReference(for: post).delete()
+    }
+    
+    func favorite(_ post: Post) async throws {
+        var post = post
+        post.isFavorite = true
+        try await documentReference(for: post).setData(from: post, merge: true)
+    }
+    
+    func unfavorite(_ post: Post) async throws {
+        var post = post
+        post.isFavorite = false
+        try await documentReference(for: post).setData(from: post, merge: true)
+    }
+    
+    private func documentReference(for post: Post) -> DocumentReference {
+        return postsReference.document(post.id.uuidString)
     }
 }
