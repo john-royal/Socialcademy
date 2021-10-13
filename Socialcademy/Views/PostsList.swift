@@ -26,9 +26,7 @@ struct PostsList: View {
                         }
                     }
                     .sheet(isPresented: $showNewPostForm) {
-                        NewPostForm(submitAction: { post in
-                            try await viewModel.submit(post)
-                        })
+                        NewPostForm(viewModel: viewModel.makeNewPostFormViewModel())
                     }
             }
         } else {

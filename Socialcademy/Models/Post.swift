@@ -10,6 +10,7 @@ import Foundation
 struct Post: Identifiable, Hashable, Equatable {
     var title: String
     var content: String
+    var imageURL: URL?
     var author: User
     var id = UUID()
     var timestamp = Date()
@@ -26,7 +27,7 @@ struct Post: Identifiable, Hashable, Equatable {
 
 extension Post: Codable {
     enum CodingKeys: CodingKey {
-        case title, content, author, id, timestamp
+        case title, content, imageURL, author, id, timestamp
     }
 }
 

@@ -48,9 +48,11 @@ class PostViewModel: ObservableObject {
         return CommentViewModel(commentService: CommentService(post: post, user: postService.user))
     }
     
-    func submit(_ post: Post) async throws {
-        try await postService.create(post)
-        posts.value?.insert(post, at: 0)
+    func makeNewPostFormViewModel() -> NewPostFormViewModel {
+        return NewPostFormViewModel(user: postService.user, submitAction: { [weak self] post in
+            try await self?.postService.create(post)
+            self?.posts.value?.insert(post, at: 0)
+        })
     }
     
     func canDelete(_ post: Post) -> Bool {

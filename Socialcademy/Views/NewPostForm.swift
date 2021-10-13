@@ -10,58 +10,80 @@ import SwiftUI
 // MARK: - NewPostForm
 
 struct NewPostForm: View {
-    let submitAction: (Post) async throws -> Void
-    
-    @State private var title = ""
-    @State private var content = ""
-    
-    @State private var didSubmit = false
-    @State private var hasError = false
+    @StateObject var viewModel: NewPostFormViewModel
     
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var authViewModel: AuthViewModel
     
     var body: some View {
         NavigationView {
             Form {
                 Section("Title") {
-                    TextField("Title", text: $title)
+                    TextField("Title", text: $viewModel.title)
                 }
                 Section("Content") {
-                    TextEditor(text: $content)
+                    TextEditor(text: $viewModel.content)
                         .multilineTextAlignment(.leading)
                 }
-                SubmitButton(action: handleSubmit)
+                ChooseImageSection(selection: $viewModel.image)
+                SubmitButton(action: viewModel.submitPost)
             }
             .navigationTitle("New Post")
         }
-        .onSubmit(handleSubmit)
-        .disabled(didSubmit)
-        .alert("Error", isPresented: $hasError, actions: {}) {
+        .onSubmit(viewModel.submitPost)
+        .disabled(viewModel.isLoading)
+        .alert("Error", isPresented: $viewModel.hasError, actions: {}) {
             Text("Sorry, something went wrong while creating your post.")
         }
+        .onChange(of: viewModel.didSubmit) { didSubmit in
+            guard didSubmit else { return }
+            dismiss()
+        }
     }
-    
-    private func handleSubmit() {
-        Task {
-            didSubmit = true
-            do {
-                let post = makePost()
-                try await submitAction(post)
-                dismiss()
-            } catch {
-                print("[NewPostForm] Error submitting post: \(error.localizedDescription)")
-                hasError = true
+}
+
+// MARK: - ChooseImageSection
+
+private extension NewPostForm {
+    struct ChooseImageSection: View {
+        @Binding var selection: UIImage?
+        @State private var showChooseImageSource = false
+        @State private var imageSourceType: ImagePickerView.SourceType?
+        
+        var body: some View {
+            Section("Image") {
+                if let image = selection {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .frame(height: 200)
+                        .frame(maxWidth: .infinity)
+                    Button("Change Image", action: {
+                        showChooseImageSource = true
+                    })
+                } else {
+                    Button("Select Image", action: {
+                        showChooseImageSource = true
+                    })
+                }
             }
-            didSubmit = false
+            .confirmationDialog("Choose Image", isPresented: $showChooseImageSource) {
+                Button("Choose from Library", action: {
+                    imageSourceType = .photoLibrary
+                })
+                Button("Take Photo", action: {
+                    imageSourceType = .camera
+                })
+                if selection != nil {
+                    Button("Remove Image", role: .destructive, action: {
+                        selection = nil
+                    })
+                }
+            }
+            .sheet(item: $imageSourceType) {
+                ImagePickerView(sourceType: $0, selection: $selection)
+            }
         }
-    }
-    
-    private func makePost() -> Post {
-        guard let user = authViewModel.user else {
-            preconditionFailure("Cannot create post without a signed in user")
-        }
-        return Post(title: title, content: content, author: user)
     }
 }
 
@@ -98,8 +120,7 @@ private extension NewPostForm {
 #if DEBUG
 struct NewPostForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostForm(submitAction: { _ in })
-            .environmentObject(AuthViewModel.preview())
+        NewPostForm(viewModel: NewPostFormViewModel(user: User.testUser, submitAction: { _ in }))
     }
 }
 #endif

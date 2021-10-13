@@ -25,6 +25,9 @@ struct PostRow: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.gray)
             }
+            if let imageURL = viewModel.imageURL {
+                PostImageView(url: imageURL)
+            }
             Text(viewModel.title)
                 .font(.title3)
                 .fontWeight(.semibold)
@@ -66,6 +69,28 @@ struct PostRow: View {
                 CommentsList(viewModel: viewModel.makeCommentViewModel())
             } label: {
                 EmptyView()
+            }
+        }
+    }
+}
+
+// MARK: - PostImageView
+
+private extension PostRow {
+    struct PostImageView: View {
+        let url: URL
+        
+        var body: some View {
+            AsyncImage(url: url) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } placeholder: {
+                Color.clear
+                    .frame(height: 200)
             }
         }
     }
