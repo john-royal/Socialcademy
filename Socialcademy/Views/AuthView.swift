@@ -15,6 +15,7 @@ struct AuthView: View {
     var body: some View {
         if viewModel.user != nil {
             MainTabView()
+                .environmentObject(viewModel)
         } else {
             SignInView {
                 viewModel.signIn(email: $0, password: $1)

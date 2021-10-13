@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+@MainActor
 struct MainTabView: View {
+    @EnvironmentObject private var authViewModel: AuthViewModel
+    
     var body: some View {
         TabView {
             PostsList(viewModel: PostViewModel())
@@ -18,6 +21,12 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Favorites", systemImage: "heart")
                 }
+            Button("Sign Out", action: {
+                authViewModel.signOut()
+            })
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
         }
     }
 }
@@ -25,5 +34,6 @@ struct MainTabView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
+            .environmentObject(AuthViewModel())
     }
 }

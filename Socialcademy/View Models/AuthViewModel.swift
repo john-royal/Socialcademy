@@ -33,6 +33,13 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func signOut() {
+        performTask { [weak self] in
+            try await self?.authService.signOut()
+            self?.user = nil
+        }
+    }
+    
     private func performTask(action: @escaping () async throws -> Void) {
         Task {
             isLoading = true

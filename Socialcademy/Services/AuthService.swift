@@ -13,6 +13,7 @@ protocol AuthServiceProtocol {
     func createAccount(name: String, email: String, password: String) async throws -> User
     func currentUser() -> User?
     func signIn(email: String, password: String) async throws -> User
+    func signOut() async throws
 }
 
 // MARK: - AuthService
@@ -40,6 +41,10 @@ struct AuthService: AuthServiceProtocol {
     func signIn(email: String, password: String) async throws -> User {
         let result = try await auth.signIn(withEmail: email, password: password)
         return User(from: result.user)
+    }
+    
+    func signOut() throws {
+        try auth.signOut()
     }
 }
 
