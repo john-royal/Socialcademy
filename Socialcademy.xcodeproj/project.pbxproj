@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBD270E2D720079BD1D /* FirebaseAnalytics */; };
 		522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBF270E2D720079BD1D /* FirebaseFirestore */; };
-		522D5EC2270E2D720079BD1D /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */; };
 		522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */; };
 		52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */; };
 		52D6F9DF270CDBC2009B9E39 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DE270CDBC2009B9E39 /* ContentView.swift */; };
@@ -32,7 +31,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				522D5EC2270E2D720079BD1D /* FirebaseFirestoreCombine-Community in Frameworks */,
 				522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */,
 				522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */,
@@ -97,7 +95,6 @@
 			packageProductDependencies = (
 				522D5EBD270E2D720079BD1D /* FirebaseAnalytics */,
 				522D5EBF270E2D720079BD1D /* FirebaseFirestore */,
-				522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */,
 				522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */,
 			);
 			productName = Socialcademy;
@@ -386,11 +383,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 522D5EBC270E2D720079BD1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
-		};
-		522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 522D5EBC270E2D720079BD1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreCombine-Community";
 		};
 		522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
