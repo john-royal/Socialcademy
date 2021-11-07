@@ -2,16 +2,15 @@
 //  PostsList.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/11/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import SwiftUI
 
 struct PostsList: View {
-    @State private var posts = [Post.testPost]
+    private var posts = [Post.testPost]
     
     @State private var searchText = ""
-    @State private var showNewPostForm = false
     
     var body: some View {
         NavigationView {
@@ -22,21 +21,7 @@ struct PostsList: View {
             }
             .searchable(text: $searchText)
             .navigationTitle("Posts")
-            .toolbar {
-                Button {
-                    showNewPostForm = true
-                } label: {
-                    Label("New Post", systemImage: "square.and.pencil")
-                }
-            }
-            .sheet(isPresented: $showNewPostForm) {
-                NewPostForm(submitAction: submitPost(_:))
-            }
         }
-    }
-    
-    private func submitPost(_ post: Post) {
-        posts.insert(post, at: 0)
     }
 }
 
