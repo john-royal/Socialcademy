@@ -2,7 +2,7 @@
 //  PostRow.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/12/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ struct PostRow: View {
             HStack {
                 Text(post.authorName)
                 Spacer()
-                Text(post.timestamp.formatted(date: .abbreviated, time: .omitted))
+                Text(post.timestamp.formatted(date: .abbreviated, time: .shortened))
             }
             .font(.subheadline)
             .foregroundColor(.gray)

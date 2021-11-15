@@ -10,14 +10,12 @@
 		5216384527153DF900852F55 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216384427153DF900852F55 /* Post.swift */; };
 		5216384727153EDB00852F55 /* PostsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216384627153EDB00852F55 /* PostsList.swift */; };
 		521638492715EE5300852F55 /* PostRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521638482715EE5300852F55 /* PostRow.swift */; };
-		5216384B2715EF4900852F55 /* NewPostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216384A2715EF4900852F55 /* NewPostForm.swift */; };
-		521638512716388C00852F55 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521638502716388C00852F55 /* PostService.swift */; };
 		522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBD270E2D720079BD1D /* FirebaseAnalytics */; };
 		522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBF270E2D720079BD1D /* FirebaseFirestore */; };
-		522D5EC2270E2D720079BD1D /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */; };
 		522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */; };
+		526424872738607800B5F45B /* NewPostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526424862738607800B5F45B /* NewPostForm.swift */; };
+		5264248D2738BE1600B5F45B /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5264248C2738BE1600B5F45B /* PostService.swift */; };
 		52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */; };
-		52D6F9DF270CDBC2009B9E39 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DE270CDBC2009B9E39 /* ContentView.swift */; };
 		52D6F9E1270CDBC3009B9E39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */; };
 		52D6F9E4270CDBC3009B9E39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E3270CDBC3009B9E39 /* Preview Assets.xcassets */; };
 		52D6F9EB270CDC2F009B9E39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9EA270CDC2F009B9E39 /* GoogleService-Info.plist */; };
@@ -27,11 +25,10 @@
 		5216384427153DF900852F55 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		5216384627153EDB00852F55 /* PostsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsList.swift; sourceTree = "<group>"; };
 		521638482715EE5300852F55 /* PostRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRow.swift; sourceTree = "<group>"; };
-		5216384A2715EF4900852F55 /* NewPostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostForm.swift; sourceTree = "<group>"; };
-		521638502716388C00852F55 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		526424862738607800B5F45B /* NewPostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostForm.swift; sourceTree = "<group>"; };
+		5264248C2738BE1600B5F45B /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		52D6F9D9270CDBC2009B9E39 /* Socialcademy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socialcademy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialcademyApp.swift; sourceTree = "<group>"; };
-		52D6F9DE270CDBC2009B9E39 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52D6F9E3270CDBC3009B9E39 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52D6F9EA270CDC2F009B9E39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -42,7 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				522D5EC2270E2D720079BD1D /* FirebaseFirestoreCombine-Community in Frameworks */,
 				522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */,
 				522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */,
@@ -55,10 +51,9 @@
 		5216384C2715F21200852F55 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				52D6F9DE270CDBC2009B9E39 /* ContentView.swift */,
 				5216384627153EDB00852F55 /* PostsList.swift */,
 				521638482715EE5300852F55 /* PostRow.swift */,
-				5216384A2715EF4900852F55 /* NewPostForm.swift */,
+				526424862738607800B5F45B /* NewPostForm.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -81,10 +76,10 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		5216384F2716386900852F55 /* Services */ = {
+		5264248B2738BE0800B5F45B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				521638502716388C00852F55 /* PostService.swift */,
+				5264248C2738BE1600B5F45B /* PostService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -110,7 +105,7 @@
 			children = (
 				52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */,
 				5216384C2715F21200852F55 /* Views */,
-				5216384F2716386900852F55 /* Services */,
+				5264248B2738BE0800B5F45B /* Services */,
 				5216384D2715F42F00852F55 /* Models */,
 				5216384E271631AE00852F55 /* Resources */,
 			);
@@ -144,7 +139,6 @@
 			packageProductDependencies = (
 				522D5EBD270E2D720079BD1D /* FirebaseAnalytics */,
 				522D5EBF270E2D720079BD1D /* FirebaseFirestore */,
-				522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */,
 				522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */,
 			);
 			productName = Socialcademy;
@@ -158,7 +152,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					52D6F9D8270CDBC2009B9E39 = {
@@ -206,12 +200,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5216384527153DF900852F55 /* Post.swift in Sources */,
-				52D6F9DF270CDBC2009B9E39 /* ContentView.swift in Sources */,
-				521638512716388C00852F55 /* PostService.swift in Sources */,
+				5264248D2738BE1600B5F45B /* PostService.swift in Sources */,
 				521638492715EE5300852F55 /* PostRow.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
-				5216384B2715EF4900852F55 /* NewPostForm.swift in Sources */,
 				5216384727153EDB00852F55 /* PostsList.swift in Sources */,
+				526424872738607800B5F45B /* NewPostForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,11 +431,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 522D5EBC270E2D720079BD1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
-		};
-		522D5EC1270E2D720079BD1D /* FirebaseFirestoreCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 522D5EBC270E2D720079BD1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreCombine-Community";
 		};
 		522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
