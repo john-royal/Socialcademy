@@ -2,16 +2,15 @@
 //  PostsList.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/11/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import SwiftUI
 
 struct PostsList: View {
-    @StateObject var viewModel = PostViewModel()
+    @StateObject var viewModel = PostsListViewModel()
     
     @State private var searchText = ""
-    @State private var showNewPostForm = false
     
     var body: some View {
         NavigationView {
@@ -23,33 +22,34 @@ struct PostsList: View {
                     EmptyListView(
                         title: "Cannot Load Posts",
                         message: error.localizedDescription,
-                        retryAction: { viewModel.fetchPosts() }
+                        action: {
+                            viewModel.fetchPosts()
+                        }
                     )
-                case .empty:
+                case let .loaded(posts) where posts.isEmpty:
                     EmptyListView(
                         title: "No Posts",
-                        message: "There are no posts here."
+                        message: "There aren’t any posts yet."
                     )
                 case let .loaded(posts):
-                    List(posts, id: \.title) { post in
+                    List(posts) { post in
                         if searchText.isEmpty || post.contains(searchText) {
                             PostRow(post: post)
                         }
                     }
                     .searchable(text: $searchText)
-                    .animation(.default, value: posts)
                 }
             }
-            .navigationTitle("Socialcademy")
+            .navigationTitle("Posts")
             .toolbar {
                 Button {
-                    showNewPostForm = true
+                    viewModel.showNewPostForm = true
                 } label: {
                     Label("New Post", systemImage: "square.and.pencil")
                 }
             }
-            .sheet(isPresented: $showNewPostForm) {
-                NewPostForm(submitAction: viewModel.makeSubmitPostAction())
+            .sheet(isPresented: $viewModel.showNewPostForm) {
+                NewPostForm(submitAction: viewModel.submitPost(_:))
             }
         }
         .onAppear {
@@ -58,13 +58,11 @@ struct PostsList: View {
     }
 }
 
-// MARK: - Previews
-
 #if DEBUG
 struct PostsList_Previews: PreviewProvider {
     static var previews: some View {
         ListPreview(state: .loaded([Post.testPost]))
-        ListPreview(state: .empty)
+        ListPreview(state: .loaded([]))
         ListPreview(state: .error)
         ListPreview(state: .loading)
     }
@@ -74,7 +72,9 @@ struct PostsList_Previews: PreviewProvider {
         let state: Loadable<[Post]>
         
         var body: some View {
-            PostsList(viewModel: PostViewModel(postService: PostServiceStub(state: state)))
+            let postService = PostServiceStub(state: state)
+            let viewModel = PostsListViewModel(postService: postService)
+            PostsList(viewModel: viewModel)
         }
     }
 }

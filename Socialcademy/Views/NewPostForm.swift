@@ -2,21 +2,18 @@
 //  NewPostForm.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/12/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import SwiftUI
-
-// MARK: - NewPostForm
 
 struct NewPostForm: View {
     let submitAction: (Post) async throws -> Void
     
     @State private var post = Post(title: "", content: "", authorName: "")
-    @State private var didSubmit = false
-    @State private var hasError = false
     
-    @Environment(\.dismiss) private var dismiss
+    @State private var isSubmitting = false
+    @State private var hasError = false
     
     var body: some View {
         NavigationView {
@@ -29,61 +26,41 @@ struct NewPostForm: View {
                     TextEditor(text: $post.content)
                         .multilineTextAlignment(.leading)
                 }
-                SubmitButton(action: handleSubmit)
+                Button(action: handleSubmit) {
+                    if isSubmitting {
+                        ProgressView()
+                    } else {
+                        Text("Submit Post")
+                    }
+                }
+                .font(.headline)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.white)
+                .padding()
+                .listRowBackground(Color.accentColor)
             }
+            .onSubmit(handleSubmit)
             .navigationTitle("New Post")
         }
-        .onSubmit(handleSubmit)
-        .disabled(didSubmit)
+        .disabled(isSubmitting)
         .alert("Error", isPresented: $hasError, actions: {}) {
-            Text("Sorry, something went wrong while creating your post.")
+            Text("Sorry, something went wrong.")
         }
     }
     
     private func handleSubmit() {
         Task {
-            didSubmit = true
+            isSubmitting = true
             do {
                 try await submitAction(post)
-                dismiss()
             } catch {
-                print("[NewPostForm] Error submitting post: \(error.localizedDescription)")
+                print("[NewPostForm] Cannot submit post: \(error.localizedDescription)")
                 hasError = true
             }
-            didSubmit = false
+            isSubmitting = false
         }
     }
 }
-
-// MARK: - SubmitButton
-
-private extension NewPostForm {
-    struct SubmitButton: View {
-        let action: () -> Void
-        
-        @Environment(\.isEnabled) private var isEnabled
-        
-        var body: some View {
-            Button(action: action) {
-                Group {
-                    if isEnabled {
-                        Text("Submit Post")
-                            .fontWeight(.semibold)
-                    } else {
-                        ProgressView()
-                    }
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-            }
-            .listRowBackground(Color.accentColor)
-            .animation(.default, value: isEnabled)
-        }
-    }
-}
-
-// MARK: - Preview
 
 struct NewPostForm_Previews: PreviewProvider {
     static var previews: some View {

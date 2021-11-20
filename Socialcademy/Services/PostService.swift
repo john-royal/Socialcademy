@@ -2,7 +2,7 @@
 //  PostService.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/12/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import Foundation
@@ -20,10 +20,10 @@ protocol PostServiceProtocol {
 
 #if DEBUG
 struct PostServiceStub: PostServiceProtocol {
-    var state: Loadable<[Post]> = .loaded([Post.testPost])
+    var state: Loadable<[Post]>
     
     func fetchPosts() async throws -> [Post] {
-        return try await state.stub()
+        return try await state.simulate()
     }
     
     func create(_ post: Post) async throws {}
@@ -36,27 +36,26 @@ struct PostService: PostServiceProtocol {
     let postsReference = Firestore.firestore().collection("posts_v1")
     
     func fetchPosts() async throws -> [Post] {
-        let snapshot = try await postsReference
-            .order(by: "timestamp", descending: true)
-            .getDocuments()
-        return snapshot.documents.compactMap { document in
+        let query = postsReference.order(by: "timestamp", descending: true)
+        let snapshot = try await query.getDocuments()
+        let posts = snapshot.documents.compactMap { document in
             try! document.data(as: Post.self)
         }
+        return posts
     }
     
     func create(_ post: Post) async throws {
-        try await postsReference.addDocument(from: post)
+        let document = postsReference.document(post.id.uuidString)
+        try await document.setData(from: post)
     }
 }
 
-// MARK: - Private
-
-private extension CollectionReference {
-    func addDocument<T: Encodable>(from value: T) async throws {
+private extension DocumentReference {
+    func setData<T: Encodable>(from value: T) async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            // Force try is used because this method only throws for encoding errors (other errors are passed to the completion handler).
-            // Output is ignored because we don’t have any use for the document reference.
-            _ = try! addDocument(from: value) { error in
+            // Force try is acceptable here because the method only throws encoding errors, which won’t happen unless there’s a problem with our model. All other errors are passed to the completion handler.
+            // Output is ignored because we’re not using the document reference returned from the method.
+            _ = try! setData(from: value) { error in
                 if let error = error {
                     continuation.resume(throwing: error)
                     return

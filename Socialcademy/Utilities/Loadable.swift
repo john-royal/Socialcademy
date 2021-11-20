@@ -1,16 +1,14 @@
 //
 //  Loadable.swift
-//  FirebaseTestProject
+//  Socialcademy
 //
-//  Created by John Royal on 9/20/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import Foundation
 
-// MARK: - Loadable
-
-enum Loadable<Value: Equatable> {
-    case loading, loaded(Value), error(Error)
+enum Loadable<Value> {
+    case loading, error(Error), loaded(Value)
 }
 
 extension Loadable {
@@ -22,59 +20,35 @@ extension Loadable {
             return value
         }
         set {
-            self = newValue.map { .loaded($0) } ?? .loading
-        }
-    }
-    var error: Error? {
-        get {
-            guard case let .error(error) = self else {
-                return nil
+            guard let newValue = newValue else {
+                return
             }
-            return error
-        }
-        set {
-            self = newValue.map { .error($0) } ?? .loading
+            self = .loaded(newValue)
         }
     }
 }
-
-extension Loadable where Value: ExpressibleByArrayLiteral {
-    static var empty: Loadable<Value> {
-        .loaded([])
-    }
-}
-
-extension Loadable: Equatable {
-    static func == (lhs: Loadable<Value>, rhs: Loadable<Value>) -> Bool {
-        switch (lhs, rhs) {
-        case (.loading, .loading), (.error(_), .error(_)):
-            return true
-        case let (.loaded(value1), .loaded(value2)):
-            return value1 == value2
-        default:
-            return false
-        }
-    }
-}
-
-// MARK: - Stub
 
 #if DEBUG
 extension Loadable {
-    static var error: Loadable<Value> {
-        .error(NSError(domain: "StubError", code: 0))
-    }
-    
-    func stub() async throws -> Value {
+    func simulate() async throws -> Value {
         switch self {
         case .loading:
-            await Task.sleep(1_000_000_000 * 5)
-            fatalError()
-        case let .loaded(value):
-            return value
+            await Task.sleep(10 * 1_000_000_000)
+            fatalError("Timeout exceeded for “loading” case.")
         case let .error(error):
             throw error
+        case let .loaded(value):
+            return value
         }
+    }
+    
+    static var error: Loadable<Value> {
+        return .error(PreviewError())
+    }
+    
+    private struct PreviewError: LocalizedError {
+        let errorDescription: String? = "Lorem ipsum dolor set amet."
     }
 }
 #endif
+
