@@ -2,29 +2,29 @@
 //  PostRow.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/12/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import SwiftUI
 
-// MARK: - PostRow
-
 struct PostRow: View {
-    let post: Post
-    let deleteAction: () async throws -> Void
+    typealias DeleteAction = () async throws -> Void
     
+    let post: Post
+    let deleteAction: DeleteAction
+    
+    @State private var hasConfirmationDialog = false
     @State private var hasError = false
+    @State private var error: Error?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(post.authorName)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
                 Spacer()
-                Text(post.timestamp.formatted(date: .abbreviated, time: .omitted))
-                    .font(.caption)
+                Text(post.timestamp.formatted(date: .abbreviated, time: .shortened))
             }
+            .font(.subheadline)
             .foregroundColor(.gray)
             Text(post.title)
                 .font(.title3)
@@ -32,51 +32,52 @@ struct PostRow: View {
             Text(post.content)
             HStack {
                 Spacer()
-                DeleteButton(action: handleDelete)
+                DeleteButton(action: {
+                    hasConfirmationDialog = true
+                })
             }
         }
         .padding(.vertical)
+        .actionSheet(isPresented: $hasConfirmationDialog) {
+            ActionSheet(
+                title: Text("Are you sure you want to delete this post?"),
+                buttons: [
+                    .destructive(Text("Delete"), action: deletePost),
+                    .cancel()
+                ]
+            )
+        }
         .alert("Cannot Delete Post", isPresented: $hasError, actions: {}) {
-            Text("Sorry, something went wrong.")
+            Text(error?.localizedDescription ?? "Sorry, something went wrong.")
         }
     }
     
-    private func handleDelete() {
+    private func deletePost() {
         Task {
             do {
                 try await deleteAction()
             } catch {
+                self.error = error
                 hasError = true
             }
         }
     }
 }
 
-// MARK: - DeleteButton
-
 private extension PostRow {
     struct DeleteButton: View {
         let action: () -> Void
         
-        @State private var isShowingConfirmation = false
-        
         var body: some View {
-            Button(role: .destructive) {
-                isShowingConfirmation = true
-            } label: {
+            Button(role: .destructive, action: action) {
                 Label("Delete", systemImage: "trash")
                     .labelStyle(.iconOnly)
                     .foregroundColor(.red)
             }
             .buttonStyle(.plain)
-            .alert("Are you sure you want to delete this post?", isPresented: $isShowingConfirmation) {
-                Button("Delete", role: .destructive, action: action)
-            }
         }
     }
 }
-
-// MARK: - Preview
 
 struct PostRow_Previews: PreviewProvider {
     static var previews: some View {

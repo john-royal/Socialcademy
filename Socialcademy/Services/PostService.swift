@@ -2,7 +2,7 @@
 //  PostService.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/12/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import Foundation
@@ -21,10 +21,10 @@ protocol PostServiceProtocol {
 
 #if DEBUG
 struct PostServiceStub: PostServiceProtocol {
-    var state: Loadable<[Post]> = .loaded([Post.testPost])
+    var state: Loadable<[Post]>
     
     func fetchPosts() async throws -> [Post] {
-        return try await state.stub()
+        return try await state.simulate()
     }
     
     func create(_ post: Post) async throws {}
@@ -36,22 +36,40 @@ struct PostServiceStub: PostServiceProtocol {
 // MARK: - PostService
 
 struct PostService: PostServiceProtocol {
-    let postsReference = Firestore.firestore().collection("posts_v2")
+    let postsReference = Firestore.firestore().collection("posts_v1")
     
     func fetchPosts() async throws -> [Post] {
-        let snapshot = try await postsReference
-            .order(by: "timestamp", descending: true)
-            .getDocuments()
-        return snapshot.documents.compactMap { document in
+        let query = postsReference.order(by: "timestamp", descending: true)
+        let snapshot = try await query.getDocuments()
+        let posts = snapshot.documents.compactMap { document in
             try! document.data(as: Post.self)
         }
+        return posts
     }
     
     func create(_ post: Post) async throws {
-        try await postsReference.document(post.id.uuidString).setData(from: post)
+        let document = postsReference.document(post.id.uuidString)
+        try await document.setData(from: post)
     }
     
     func delete(_ post: Post) async throws {
-        try await postsReference.document(post.id.uuidString).delete()
+        let document = postsReference.document(post.id.uuidString)
+        try await document.delete()
+    }
+}
+
+private extension DocumentReference {
+    func setData<T: Encodable>(from value: T) async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            // Force try is acceptable here because the method only throws encoding errors, which won’t happen unless there’s a problem with our model. All other errors are passed to the completion handler.
+            // Output is ignored because we’re not using the document reference returned from the method.
+            _ = try! setData(from: value) { error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                continuation.resume()
+            }
+        }
     }
 }

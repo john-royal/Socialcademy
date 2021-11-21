@@ -2,17 +2,17 @@
 //  Post.swift
 //  Socialcademy
 //
-//  Created by John Royal on 10/11/21.
+//  Created by John Royal on 11/1/21.
 //
 
 import Foundation
 
-struct Post: Identifiable, Hashable, Equatable, Codable {
+struct Post: Identifiable, Equatable, Codable {
     var title: String
     var content: String
     var authorName: String
-    var id = UUID()
     var timestamp = Date()
+    var id = UUID()
     
     func contains(_ string: String) -> Bool {
         let properties = [title, content, authorName].map { $0.lowercased() }
