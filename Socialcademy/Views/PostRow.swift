@@ -14,10 +14,12 @@ struct PostRow: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text(post.authorName)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
                 Spacer()
-                Text(post.timestamp.formatted(date: .abbreviated, time: .shortened))
+                Text(post.timestamp.formatted(date: .abbreviated, time: .omitted))
+                    .font(.caption)
             }
-            .font(.subheadline)
             .foregroundColor(.gray)
             Text(post.title)
                 .font(.title3)
