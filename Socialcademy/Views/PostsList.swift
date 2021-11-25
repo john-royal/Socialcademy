@@ -14,7 +14,7 @@ struct PostsList: View {
     
     var body: some View {
         NavigationView {
-            List(posts, id: \.title) { post in
+            List(posts) { post in
                 if searchText.isEmpty || post.contains(searchText) {
                     PostRow(post: post)
                 }
