@@ -2,18 +2,22 @@
 //  NewPostForm.swift
 //  Socialcademy
 //
-//  Created by John Royal on 11/1/21.
+//  Created by John Royal on 1/9/22.
 //
 
 import SwiftUI
 
+// MARK: - NewPostForm
+
 struct NewPostForm: View {
-    let submitAction: (Post) async throws -> Void
+    typealias CreateAction = (Post) async throws -> Void
+    
+    let createAction: CreateAction
     
     @State private var post = Post(title: "", content: "", authorName: "")
+    @State private var state = FormState.idle
     
-    @State private var isSubmitting = false
-    @State private var hasError = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
@@ -26,11 +30,11 @@ struct NewPostForm: View {
                     TextEditor(text: $post.content)
                         .multilineTextAlignment(.leading)
                 }
-                Button(action: handleSubmit) {
-                    if isSubmitting {
+                Button(action: createPost) {
+                    if state == .working {
                         ProgressView()
                     } else {
-                        Text("Submit Post")
+                        Text("Create Post")
                     }
                 }
                 .font(.headline)
@@ -39,31 +43,51 @@ struct NewPostForm: View {
                 .padding()
                 .listRowBackground(Color.accentColor)
             }
-            .onSubmit(handleSubmit)
+            .onSubmit(createPost)
             .navigationTitle("New Post")
         }
-        .disabled(isSubmitting)
-        .alert("Error", isPresented: $hasError, actions: {}) {
+        .disabled(state == .working)
+        .alert("Cannot Create Post", isPresented: $state.isError, actions: {}) {
             Text("Sorry, something went wrong.")
         }
     }
     
-    private func handleSubmit() {
+    private func createPost() {
         Task {
-            isSubmitting = true
+            state = .working
             do {
-                try await submitAction(post)
+                try await createAction(post)
+                dismiss()
             } catch {
-                print("[NewPostForm] Cannot submit post: \(error.localizedDescription)")
-                hasError = true
+                print("[NewPostForm] Cannot create post: \(error)")
+                state = .error
             }
-            isSubmitting = false
         }
     }
 }
 
+// MARK: - FormState
+
+private extension NewPostForm {
+    enum FormState {
+        case idle, working, error
+        
+        var isError: Bool {
+            get {
+                self == .error
+            }
+            set {
+                guard !newValue else { return }
+                self = .idle
+            }
+        }
+    }
+}
+
+// MARK: - Preview
+
 struct NewPostForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostForm(submitAction: { _ in })
+        NewPostForm(createAction: { _ in })
     }
 }

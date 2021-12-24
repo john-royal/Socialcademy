@@ -2,20 +2,20 @@
 //  PostsList.swift
 //  Socialcademy
 //
-//  Created by John Royal on 11/1/21.
+//  Created by John Royal on 1/9/22.
 //
 
 import SwiftUI
 
 struct PostsList: View {
-    @State private var posts = [Post.testPost]
+    @StateObject var viewModel = PostsViewModel()
     
     @State private var searchText = ""
     @State private var showNewPostForm = false
     
     var body: some View {
         NavigationView {
-            List(posts) { post in
+            List(viewModel.posts) { post in
                 if searchText.isEmpty || post.contains(searchText) {
                     PostRow(post: post)
                 }
@@ -30,11 +30,7 @@ struct PostsList: View {
                 }
             }
             .sheet(isPresented: $showNewPostForm) {
-                NewPostForm(submitAction: { post in
-                    try await PostService.create(post)
-                    posts.insert(post, at: 0)
-                    showNewPostForm = false
-                })
+                NewPostForm(createAction: viewModel.makeCreateAction())
             }
         }
     }
