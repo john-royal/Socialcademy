@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class PostsViewModel: ObservableObject {
-    @Published var posts = Loadable<[Post]>.loading
+    @Published var posts: Loadable<[Post]> = .loading
     
     private let postsRepository: PostsRepositoryProtocol
     
