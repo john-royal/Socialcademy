@@ -22,6 +22,7 @@
 		52D6F9E1270CDBC3009B9E39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */; };
 		52D6F9E4270CDBC3009B9E39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E3270CDBC3009B9E39 /* Preview Assets.xcassets */; };
 		52D6F9EB270CDC2F009B9E39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9EA270CDC2F009B9E39 /* GoogleService-Info.plist */; };
+		52DA6904277FAA0B006FEB15 /* PostRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DA6903277FAA0B006FEB15 /* PostRowViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52D6F9E3270CDBC3009B9E39 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52D6F9EA270CDC2F009B9E39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		52DA6903277FAA0B006FEB15 /* PostRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRowViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				521F31502773EA0600EC1B26 /* PostsViewModel.swift */,
+				52DA6903277FAA0B006FEB15 /* PostRowViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5216384527153DF900852F55 /* Post.swift in Sources */,
+				52DA6904277FAA0B006FEB15 /* PostRowViewModel.swift in Sources */,
 				5264248D2738BE1600B5F45B /* PostsRepository.swift in Sources */,
 				521638492715EE5300852F55 /* PostRow.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
