@@ -27,7 +27,7 @@ class AuthViewModel: ObservableObject {
 }
 
 extension AuthViewModel {
-    class FormViewModel: ObservableObject, ErrorHandler {
+    class FormViewModel: ObservableObject, StateHandler {
         typealias SubmitAction = (_ email: String, _ password: String) async throws -> Void
         
         @Published var email = ""
@@ -43,10 +43,8 @@ extension AuthViewModel {
         }
         
         func submit() {
-            withErrorHandlingTask { [weak self, email, password] in
-                self?.isWorking = true
-                try await self?.submitAction(email, password)
-                self?.isWorking = false
+            withStateHandlingTask { [submitAction, email, password] in
+                try await submitAction(email, password)
             }
         }
     }

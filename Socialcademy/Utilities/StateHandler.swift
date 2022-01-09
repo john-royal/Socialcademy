@@ -8,11 +8,12 @@
 import Foundation
 
 @MainActor
-protocol ErrorHandler: AnyObject {
+protocol StateHandler: AnyObject {
     var error: Error? { get set }
+    var isWorking: Bool { get set }
 }
 
-extension ErrorHandler {
+extension StateHandler {
     var hasError: Bool {
         get { error != nil }
         set {
@@ -20,17 +21,22 @@ extension ErrorHandler {
             error = nil
         }
     }
-}
-
-extension ErrorHandler {
-    func withErrorHandlingTask(perform action: @escaping () async throws -> Void) {
+    
+    var isWorking: Bool {
+        get { false }
+        set {}
+    }
+    
+    func withStateHandlingTask(perform action: @escaping () async throws -> Void) {
         Task {
+            isWorking = true
             do {
                 try await action()
             } catch {
                 print("[\(Self.self)] Error: \(error)")
                 self.error = error
             }
+            isWorking = false
         }
     }
 }
