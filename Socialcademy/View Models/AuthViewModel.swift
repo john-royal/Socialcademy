@@ -17,35 +17,25 @@ class AuthViewModel: ObservableObject {
         authService.$isAuthenticated.assign(to: &$isAuthenticated)
     }
     
-    func makeSignInViewModel() -> FormViewModel {
-        return FormViewModel(submitAction: authService.signIn(email:password:))
+    func makeSignInViewModel() -> SignInViewModel {
+        return SignInViewModel(action: authService.signIn(email:password:))
     }
     
-    func makeCreateAccountViewModel() -> FormViewModel {
-        return FormViewModel(submitAction: authService.createAccount(email:password:))
+    func makeCreateAccountViewModel() -> CreateAccountViewModel {
+        return CreateAccountViewModel(action: authService.createAccount(name:email:password:))
     }
 }
 
 extension AuthViewModel {
-    class FormViewModel: ObservableObject, StateHandler {
-        typealias SubmitAction = (_ email: String, _ password: String) async throws -> Void
-        
-        @Published var email = ""
-        @Published var password = ""
-        
-        @Published var error: Error?
-        @Published var isWorking = false
-        
-        private let submitAction: SubmitAction
-        
-        init(submitAction: @escaping SubmitAction) {
-            self.submitAction = submitAction
+    class SignInViewModel: FormViewModel<(email: String, password: String)> {
+        convenience init(action: @escaping Action) {
+            self.init(initialValue: (email: "", password: ""), action: action)
         }
-        
-        func submit() {
-            withStateHandlingTask { [submitAction, email, password] in
-                try await submitAction(email, password)
-            }
+    }
+    
+    class CreateAccountViewModel: FormViewModel<(name: String, email: String, password: String)> {
+        convenience init(action: @escaping Action) {
+            self.init(initialValue: (name: "", email: "", password: ""), action: action)
         }
     }
 }

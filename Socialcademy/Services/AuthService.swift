@@ -24,8 +24,11 @@ class AuthService: ObservableObject {
         try await auth.signIn(withEmail: email, password: password)
     }
     
-    func createAccount(email: String, password: String) async throws {
-        try await auth.createUser(withEmail: email, password: password)
+    func createAccount(name: String, email: String, password: String) async throws {
+        let result = try await auth.createUser(withEmail: email, password: password)
+        let profileChangeRequest = result.user.createProfileChangeRequest()
+        profileChangeRequest.displayName = name
+        try await profileChangeRequest.commitChanges()
     }
     
     func signOut() throws {

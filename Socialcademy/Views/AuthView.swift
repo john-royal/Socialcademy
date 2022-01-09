@@ -25,19 +25,18 @@ struct AuthView: View {
 
 private extension AuthView {
     struct SignInForm<Footer: View>: View {
-        @StateObject var viewModel: AuthViewModel.FormViewModel
+        @StateObject var viewModel: AuthViewModel.SignInViewModel
         @ViewBuilder let footer: () -> Footer
         
         var body: some View {
             Form {
                 TextField("Email", text: $viewModel.email)
                     .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
                 SecureField("Password", text: $viewModel.password)
                     .textContentType(.password)
             } footer: {
-                Button("Sign In", action: {
-                    viewModel.submit()
-                })
+                Button("Sign In", action: viewModel.submit)
                     .buttonStyle(.primary)
                 footer()
                     .padding()
@@ -46,26 +45,29 @@ private extension AuthView {
                 Text($0.localizedDescription)
             }
             .disabled(viewModel.isWorking)
+            .onSubmit(viewModel.submit)
         }
     }
 }
 
 private extension AuthView {
     struct CreateAccountForm: View {
-        @StateObject var viewModel: AuthViewModel.FormViewModel
+        @StateObject var viewModel: AuthViewModel.CreateAccountViewModel
         
         @Environment(\.dismiss) private var dismiss
         
         var body: some View {
             Form {
+                TextField("Name", text: $viewModel.name)
+                    .textContentType(.name)
+                    .textInputAutocapitalization(.words)
                 TextField("Email", text: $viewModel.email)
                     .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
                 SecureField("Password", text: $viewModel.password)
                     .textContentType(.newPassword)
             } footer: {
-                Button("Create Account", action: {
-                    viewModel.submit()
-                })
+                Button("Create Account", action: viewModel.submit)
                     .buttonStyle(.primary)
                 Button("Sign In", action: dismiss.callAsFunction)
                     .padding()
@@ -74,6 +76,7 @@ private extension AuthView {
                 Text($0.localizedDescription)
             }
             .disabled(viewModel.isWorking)
+            .onSubmit(viewModel.submit)
         }
     }
 }

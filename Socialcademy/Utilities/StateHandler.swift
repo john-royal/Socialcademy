@@ -26,17 +26,25 @@ extension StateHandler {
         get { false }
         set {}
     }
+}
+
+extension StateHandler {
+    typealias Action = () async throws -> Void
     
-    func withStateHandlingTask(perform action: @escaping () async throws -> Void) {
+    nonisolated func withStateHandlingTask(perform action: @escaping Action) {
         Task {
-            isWorking = true
-            do {
-                try await action()
-            } catch {
-                print("[\(Self.self)] Error: \(error)")
-                self.error = error
-            }
-            isWorking = false
+            await withStateHandling(perform: action)
         }
+    }
+    
+    private func withStateHandling(perform action: @escaping Action) async {
+        isWorking = true
+        do {
+            try await action()
+        } catch {
+            print("[\(Self.self)] Error: \(error)")
+            self.error = error
+        }
+        isWorking = false
     }
 }

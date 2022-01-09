@@ -12,6 +12,7 @@
 		5216384727153EDB00852F55 /* PostsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5216384627153EDB00852F55 /* PostsList.swift */; };
 		521638492715EE5300852F55 /* PostRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521638482715EE5300852F55 /* PostRow.swift */; };
 		521F31512773EA0600EC1B26 /* PostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521F31502773EA0600EC1B26 /* PostsViewModel.swift */; };
+		52293ED3278BA442007F47C6 /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52293ED2278BA442007F47C6 /* FormViewModel.swift */; };
 		522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBD270E2D720079BD1D /* FirebaseAnalytics */; };
 		522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBF270E2D720079BD1D /* FirebaseFirestore */; };
 		522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */; };
@@ -39,6 +40,7 @@
 		5216384627153EDB00852F55 /* PostsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsList.swift; sourceTree = "<group>"; };
 		521638482715EE5300852F55 /* PostRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRow.swift; sourceTree = "<group>"; };
 		521F31502773EA0600EC1B26 /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
+		52293ED2278BA442007F47C6 /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 		522E78C1278A252B000FD13B /* StateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateHandler.swift; sourceTree = "<group>"; };
 		522E78C3278A2A7F000FD13B /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		522E78C4278A2A7F000FD13B /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				522E78C7278A2A88000FD13B /* AuthViewModel.swift */,
+				52293ED2278BA442007F47C6 /* FormViewModel.swift */,
 				521F31502773EA0600EC1B26 /* PostsViewModel.swift */,
 				52DA6903277FAA0B006FEB15 /* PostRowViewModel.swift */,
 			);
@@ -287,6 +290,7 @@
 				5216384727153EDB00852F55 /* PostsList.swift in Sources */,
 				520114622777AC7A00911B36 /* Loadable.swift in Sources */,
 				526424872738607800B5F45B /* NewPostForm.swift in Sources */,
+				52293ED3278BA442007F47C6 /* FormViewModel.swift in Sources */,
 				5238D1AE278A35FC00C00213 /* AuthViewModel.swift in Sources */,
 				521F31512773EA0600EC1B26 /* PostsViewModel.swift in Sources */,
 				5238D1B1278A361200C00213 /* AuthService.swift in Sources */,
