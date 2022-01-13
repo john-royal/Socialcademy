@@ -41,9 +41,7 @@ private extension AuthView {
                 footer()
                     .padding()
             }
-            .alert("Cannot Sign In", isPresented: $viewModel.hasError, presenting: viewModel.error, actions: { _ in }) {
-                Text($0.localizedDescription)
-            }
+            .alert("Cannot Sign In", error: $viewModel.error)
             .disabled(viewModel.isWorking)
             .onSubmit(viewModel.submit)
         }
@@ -72,9 +70,7 @@ private extension AuthView {
                 Button("Sign In", action: dismiss.callAsFunction)
                     .padding()
             }
-            .alert("Cannot Create Account", isPresented: $viewModel.hasError, presenting: viewModel.error, actions: { _ in }) {
-                Text($0.localizedDescription)
-            }
+            .alert("Cannot Create Account", error: $viewModel.error)
             .disabled(viewModel.isWorking)
             .onSubmit(viewModel.submit)
         }

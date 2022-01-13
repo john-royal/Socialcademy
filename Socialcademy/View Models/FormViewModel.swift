@@ -12,14 +12,13 @@ class FormViewModel<Value>: ObservableObject, StateHandler {
     typealias Action = (Value) async throws -> Void
     
     @Published var value: Value
+    @Published var error: Error?
+    @Published var isWorking = false
     
     subscript<T>(dynamicMember keyPath: WritableKeyPath<Value, T>) -> T {
         get { value[keyPath: keyPath] }
         set { value[keyPath: keyPath] = newValue }
     }
-    
-    @Published var error: Error?
-    @Published var isWorking = false
     
     private let action: Action
     
@@ -29,9 +28,8 @@ class FormViewModel<Value>: ObservableObject, StateHandler {
     }
     
     nonisolated func submit() {
-        withStateHandlingTask { [weak self] in
-            guard let self = self else { return }
-            try await self.action(self.value)
+        withStateHandlingTask { [self] in
+            try await action(value)
         }
     }
 }

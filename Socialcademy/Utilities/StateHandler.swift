@@ -1,5 +1,5 @@
 //
-//  ErrorHandler.swift
+//  StateHandler.swift
 //  Socialcademy
 //
 //  Created by John Royal on 1/9/22.
@@ -14,14 +14,6 @@ protocol StateHandler: AnyObject {
 }
 
 extension StateHandler {
-    var hasError: Bool {
-        get { error != nil }
-        set {
-            guard !newValue else { return }
-            error = nil
-        }
-    }
-    
     var isWorking: Bool {
         get { false }
         set {}

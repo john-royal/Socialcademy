@@ -29,10 +29,11 @@ class PostRowViewModel: ObservableObject, StateHandler {
     }
     
     func deletePost() {
+    nonisolated func deletePost() {
         withStateHandlingTask(perform: deleteAction)
     }
     
-    func favoritePost() {
+    nonisolated func favoritePost() {
         withStateHandlingTask(perform: favoriteAction)
     }
 }

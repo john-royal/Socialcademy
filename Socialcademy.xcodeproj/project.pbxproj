@@ -27,6 +27,7 @@
 		52487A372783A56D0045C3C9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52487A362783A56D0045C3C9 /* MainTabView.swift */; };
 		526424872738607800B5F45B /* NewPostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526424862738607800B5F45B /* NewPostForm.swift */; };
 		5264248D2738BE1600B5F45B /* PostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5264248C2738BE1600B5F45B /* PostsRepository.swift */; };
+		52D510D8279086960014339F /* Alert+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D510D7279086960014339F /* Alert+Error.swift */; };
 		52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */; };
 		52D6F9E1270CDBC3009B9E39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */; };
 		52D6F9E4270CDBC3009B9E39 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52D6F9E3270CDBC3009B9E39 /* Preview Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		52487A362783A56D0045C3C9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		526424862738607800B5F45B /* NewPostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostForm.swift; sourceTree = "<group>"; };
 		5264248C2738BE1600B5F45B /* PostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRepository.swift; sourceTree = "<group>"; };
+		52D510D7279086960014339F /* Alert+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Error.swift"; sourceTree = "<group>"; };
 		52D6F9D9270CDBC2009B9E39 /* Socialcademy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socialcademy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6F9DC270CDBC2009B9E39 /* SocialcademyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialcademyApp.swift; sourceTree = "<group>"; };
 		52D6F9E0270CDBC3009B9E39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		52310F392777BA6C004745AE /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
+				52D510D7279086960014339F /* Alert+Error.swift */,
 				52310F3A2777BA7B004745AE /* EmptyListView.swift */,
 				522E78C9278A2E38000FD13B /* PrimaryButtonStyle.swift */,
 			);
@@ -287,6 +290,7 @@
 				5238D1AD278A35F900C00213 /* PrimaryButtonStyle.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
 				52487A372783A56D0045C3C9 /* MainTabView.swift in Sources */,
+				52D510D8279086960014339F /* Alert+Error.swift in Sources */,
 				5216384727153EDB00852F55 /* PostsList.swift in Sources */,
 				520114622777AC7A00911B36 /* Loadable.swift in Sources */,
 				526424872738607800B5F45B /* NewPostForm.swift in Sources */,
