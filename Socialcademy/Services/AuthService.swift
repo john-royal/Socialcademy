@@ -9,14 +9,14 @@ import FirebaseAuth
 
 @MainActor
 class AuthService: ObservableObject {
-    @Published var isAuthenticated = false
+    @Published var user: User?
     
     private let auth = Auth.auth()
     private var listener: AuthStateDidChangeListenerHandle?
     
     init() {
         listener = auth.addStateDidChangeListener { [weak self] _, user in
-            self?.isAuthenticated = user != nil
+            self?.user = user.map { User(from: $0) }
         }
     }
     
@@ -33,5 +33,12 @@ class AuthService: ObservableObject {
     
     func signOut() throws {
         try auth.signOut()
+    }
+}
+
+private extension User {
+    init(from firebaseUser: FirebaseAuth.User) {
+        self.id = firebaseUser.uid
+        self.name = firebaseUser.displayName ?? ""
     }
 }

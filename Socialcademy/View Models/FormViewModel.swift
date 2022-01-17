@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 @dynamicMemberLookup
 class FormViewModel<Value>: ObservableObject, StateHandler {
     typealias Action = (Value) async throws -> Void

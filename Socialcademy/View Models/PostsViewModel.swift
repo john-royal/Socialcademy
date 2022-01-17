@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class PostsViewModel: ObservableObject {
     enum Filter {
-        case all, favorites
+        case all, author(User), favorites
     }
     
     @Published var posts: Loadable<[Post]> = .loading
@@ -18,7 +18,7 @@ class PostsViewModel: ObservableObject {
     private let filter: Filter
     private let postsRepository: PostsRepositoryProtocol
     
-    init(filter: Filter = .all, postsRepository: PostsRepositoryProtocol = PostsRepository()) {
+    init(filter: Filter = .all, postsRepository: PostsRepositoryProtocol) {
         self.filter = filter
         self.postsRepository = postsRepository
     }
@@ -27,6 +27,8 @@ class PostsViewModel: ObservableObject {
         switch filter {
         case .all:
             return "Posts"
+        case let .author(author):
+            return "\(author.name)’s Posts"
         case .favorites:
             return "Favorites"
         }
@@ -43,20 +45,26 @@ class PostsViewModel: ObservableObject {
         }
     }
     
-    func makeCreateAction() -> NewPostForm.CreateAction {
-        return { [weak self] post in
-            try await self?.postsRepository.create(post)
-            self?.posts.value?.insert(post, at: 0)
-        }
+    func makeNewPostViewModel() -> FormViewModel<Post> {
+        return FormViewModel<Post>(
+            initialValue: Post(title: "", content: "", author: postsRepository.user),
+            action: { [weak self] post in
+                try await self?.postsRepository.create(post)
+                self?.posts.value?.insert(post, at: 0)
+            }
+        )
     }
     
     func makePostRowViewModel(for post: Post) -> PostRowViewModel {
         return PostRowViewModel(
             post: post,
-            deleteAction: { [weak self] in
-                try await self?.postsRepository.delete(post)
-                self?.posts.value?.removeAll { $0 == post }
-            },
+            deleteAction: {
+                guard postsRepository.canDelete(post) else { return nil }
+                return { [weak self] in
+                    try await self?.postsRepository.delete(post)
+                    self?.posts.value?.removeAll { $0 == post }
+                }
+            }(),
             favoriteAction: { [weak self] in
                 let newValue = !post.isFavorite
                 try await newValue ? self?.postsRepository.favorite(post) : self?.postsRepository.unfavorite(post)
@@ -72,6 +80,8 @@ private extension PostsRepositoryProtocol {
         switch filter {
         case .all:
             return try await fetchAllPosts()
+        case let .author(author):
+            return try await fetchPosts(by: author)
         case .favorites:
             return try await fetchFavoritePosts()
         }
