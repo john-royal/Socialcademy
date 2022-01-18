@@ -28,11 +28,11 @@ class PostRowViewModel: ObservableObject, ErrorHandler {
         self.favoriteAction = favoriteAction
     }
     
-    func deletePost() {
+    nonisolated func deletePost() {
         withErrorHandlingTask(perform: deleteAction)
     }
     
-    func favoritePost() {
+    nonisolated func favoritePost() {
         withErrorHandlingTask(perform: favoriteAction)
     }
 }
