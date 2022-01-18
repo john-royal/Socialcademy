@@ -28,7 +28,6 @@ class PostRowViewModel: ObservableObject, StateHandler {
         self.favoriteAction = favoriteAction
     }
     
-    func deletePost() {
     nonisolated func deletePost() {
         withStateHandlingTask(perform: deleteAction)
     }
