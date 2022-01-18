@@ -13,24 +13,22 @@ protocol ErrorHandler: AnyObject {
 }
 
 extension ErrorHandler {
-    var hasError: Bool {
-        get { error != nil }
-        set {
-            guard !newValue else { return }
-            error = nil
-        }
-    }
-}
-
-extension ErrorHandler {
-    func withErrorHandlingTask(perform action: @escaping () async throws -> Void) {
-        Task {
+    nonisolated func withErrorHandlingTask(perform action: @escaping () async throws -> Void) {
+        MainActor.runTask {
             do {
                 try await action()
             } catch {
                 print("[\(Self.self)] Error: \(error)")
                 self.error = error
             }
+        }
+    }
+}
+
+private extension MainActor {
+    static func runTask(_ body: @escaping @MainActor () async -> Void) {
+        Task {
+            await body()
         }
     }
 }
