@@ -14,10 +14,7 @@ struct PostRow: View {
     let deleteAction: DeleteAction
     
     @State private var showConfirmationDialog = false
-    @State private var showErrorAlert = false
-    @State private var error: Error? {
-        didSet { showErrorAlert = error != nil }
-    }
+    @State private var error: Error?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -49,9 +46,7 @@ struct PostRow: View {
         .confirmationDialog("Are you sure you want to delete this post?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
             Button("Delete", role: .destructive, action: deletePost)
         }
-        .alert("Cannot Delete Post", isPresented: $showErrorAlert, actions: {}) {
-            Text(error?.localizedDescription ?? "Sorry, something went wrong.")
-        }
+        .alert("Cannot Delete Post", error: $error)
     }
     
     private func deletePost() {
