@@ -21,22 +21,24 @@ extension StateHandler {
 }
 
 extension StateHandler {
-    typealias Action = () async throws -> Void
-    
-    nonisolated func withStateHandlingTask(perform action: @escaping Action) {
-        Task {
-            await withStateHandling(perform: action)
+    nonisolated func withStateHandlingTask(perform action: @escaping () async throws -> Void) {
+        MainActor.runTask { [self] in
+            isWorking = true
+            do {
+                try await action()
+            } catch {
+                print("[\(Self.self)] Error: \(error)")
+                self.error = error
+            }
+            isWorking = false
         }
     }
-    
-    private func withStateHandling(perform action: @escaping Action) async {
-        isWorking = true
-        do {
-            try await action()
-        } catch {
-            print("[\(Self.self)] Error: \(error)")
-            self.error = error
+}
+
+private extension MainActor {
+    static func runTask(body: @escaping @MainActor () async -> Void) {
+        Task {
+            await body()
         }
-        isWorking = false
     }
 }
