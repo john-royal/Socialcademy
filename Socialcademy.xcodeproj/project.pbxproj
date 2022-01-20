@@ -27,6 +27,13 @@
 		5238D1B1278A361200C00213 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5238D1B0278A361200C00213 /* AuthService.swift */; };
 		5238D1B4278A363000C00213 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5238D1B3278A363000C00213 /* FirebaseAuth */; };
 		52487A372783A56D0045C3C9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52487A362783A56D0045C3C9 /* MainTabView.swift */; };
+		52536BAD279656FE0043C76C /* CommentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BAC279656FE0043C76C /* CommentsList.swift */; };
+		52536BAF279657090043C76C /* CommentsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BAE279657090043C76C /* CommentsRepository.swift */; };
+		52536BB1279657250043C76C /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BB0279657250043C76C /* Comment.swift */; };
+		52536BB3279658490043C76C /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BB2279658490043C76C /* Firestore+Extensions.swift */; };
+		52536BB527965D3B0043C76C /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BB427965D3B0043C76C /* CommentsViewModel.swift */; };
+		52536BB727965EE60043C76C /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BB627965EE60043C76C /* CommentRow.swift */; };
+		52536BB927965EFC0043C76C /* CommentRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BB827965EFC0043C76C /* CommentRowViewModel.swift */; };
 		526424872738607800B5F45B /* NewPostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526424862738607800B5F45B /* NewPostForm.swift */; };
 		5264248D2738BE1600B5F45B /* PostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5264248C2738BE1600B5F45B /* PostsRepository.swift */; };
 		52D510D8279086960014339F /* Alert+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D510D7279086960014339F /* Alert+Error.swift */; };
@@ -54,6 +61,13 @@
 		52310F3A2777BA7B004745AE /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		5238D1B0278A361200C00213 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		52487A362783A56D0045C3C9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		52536BAC279656FE0043C76C /* CommentsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsList.swift; sourceTree = "<group>"; };
+		52536BAE279657090043C76C /* CommentsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsRepository.swift; sourceTree = "<group>"; };
+		52536BB0279657250043C76C /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		52536BB2279658490043C76C /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
+		52536BB427965D3B0043C76C /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
+		52536BB627965EE60043C76C /* CommentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRow.swift; sourceTree = "<group>"; };
+		52536BB827965EFC0043C76C /* CommentRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRowViewModel.swift; sourceTree = "<group>"; };
 		526424862738607800B5F45B /* NewPostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostForm.swift; sourceTree = "<group>"; };
 		5264248C2738BE1600B5F45B /* PostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRepository.swift; sourceTree = "<group>"; };
 		52D510D7279086960014339F /* Alert+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Error.swift"; sourceTree = "<group>"; };
@@ -83,6 +97,7 @@
 		520114602777AC6F00911B36 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				52536BB2279658490043C76C /* Firestore+Extensions.swift */,
 				520114612777AC7A00911B36 /* Loadable.swift */,
 				522E78C1278A252B000FD13B /* StateHandler.swift */,
 			);
@@ -97,6 +112,8 @@
 				5216384627153EDB00852F55 /* PostsList.swift */,
 				521638482715EE5300852F55 /* PostRow.swift */,
 				526424862738607800B5F45B /* NewPostForm.swift */,
+				52536BAC279656FE0043C76C /* CommentsList.swift */,
+				52536BB627965EE60043C76C /* CommentRow.swift */,
 				522E78C4278A2A7F000FD13B /* ProfileView.swift */,
 			);
 			path = Views;
@@ -105,6 +122,7 @@
 		5216384D2715F42F00852F55 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52536BB0279657250043C76C /* Comment.swift */,
 				5216384427153DF900852F55 /* Post.swift */,
 				52293ED4278BA5E6007F47C6 /* User.swift */,
 			);
@@ -129,6 +147,8 @@
 				52293ED2278BA442007F47C6 /* FormViewModel.swift */,
 				521F31502773EA0600EC1B26 /* PostsViewModel.swift */,
 				52DA6903277FAA0B006FEB15 /* PostRowViewModel.swift */,
+				52536BB427965D3B0043C76C /* CommentsViewModel.swift */,
+				52536BB827965EFC0043C76C /* CommentRowViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -161,6 +181,7 @@
 		5264248B2738BE0800B5F45B /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				52536BAE279657090043C76C /* CommentsRepository.swift */,
 				5264248C2738BE1600B5F45B /* PostsRepository.swift */,
 			);
 			path = Repositories;
@@ -294,20 +315,27 @@
 				5238D1AB278A35F200C00213 /* AuthView.swift in Sources */,
 				521638492715EE5300852F55 /* PostRow.swift in Sources */,
 				522E78C2278A252B000FD13B /* StateHandler.swift in Sources */,
+				52536BAD279656FE0043C76C /* CommentsList.swift in Sources */,
 				5238D1AD278A35F900C00213 /* PrimaryButtonStyle.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
+				52536BB527965D3B0043C76C /* CommentsViewModel.swift in Sources */,
+				52536BAF279657090043C76C /* CommentsRepository.swift in Sources */,
 				52487A372783A56D0045C3C9 /* MainTabView.swift in Sources */,
 				52D510D8279086960014339F /* Alert+Error.swift in Sources */,
 				5216384727153EDB00852F55 /* PostsList.swift in Sources */,
+				52536BB927965EFC0043C76C /* CommentRowViewModel.swift in Sources */,
 				520114622777AC7A00911B36 /* Loadable.swift in Sources */,
+				52536BB3279658490043C76C /* Firestore+Extensions.swift in Sources */,
 				526424872738607800B5F45B /* NewPostForm.swift in Sources */,
 				52293ED3278BA442007F47C6 /* FormViewModel.swift in Sources */,
 				5238D1AE278A35FC00C00213 /* AuthViewModel.swift in Sources */,
 				521F31512773EA0600EC1B26 /* PostsViewModel.swift in Sources */,
+				52536BB1279657250043C76C /* Comment.swift in Sources */,
 				5238D1B1278A361200C00213 /* AuthService.swift in Sources */,
 				5238D1AC278A35F400C00213 /* ProfileView.swift in Sources */,
 				52310F3B2777BA7B004745AE /* EmptyListView.swift in Sources */,
 				52293ED5278BA5E6007F47C6 /* User.swift in Sources */,
+				52536BB727965EE60043C76C /* CommentRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
