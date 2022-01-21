@@ -30,7 +30,9 @@ struct PostRow: View {
                 .fontWeight(.semibold)
             Text(viewModel.content)
             HStack {
-                FavoriteButton(isFavorite: viewModel.isFavorite, action: viewModel.favoritePost)
+                FavoriteButton(isFavorite: viewModel.isFavorite, action: {
+                    viewModel.favoritePost()
+                })
                 Spacer()
                 Button(role: .destructive, action: {
                     showConfirmationDialog = true
@@ -43,7 +45,9 @@ struct PostRow: View {
         }
         .padding(.vertical)
         .confirmationDialog("Are you sure you want to delete this post?", isPresented: $showConfirmationDialog, titleVisibility: .visible) {
-            Button("Delete", role: .destructive, action: viewModel.deletePost)
+            Button("Delete", role: .destructive, action: {
+                viewModel.deletePost()
+            })
         }
         .alert("Error", error: $viewModel.error)
     }
