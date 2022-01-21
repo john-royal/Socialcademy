@@ -15,7 +15,6 @@
 		522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBD270E2D720079BD1D /* FirebaseAnalytics */; };
 		522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBF270E2D720079BD1D /* FirebaseFirestore */; };
 		522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */; };
-		522E78C2278A252B000FD13B /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E78C1278A252B000FD13B /* ErrorHandler.swift */; };
 		52310F3B2777BA7B004745AE /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52310F3A2777BA7B004745AE /* EmptyListView.swift */; };
 		52536BA927964B5F0043C76C /* Alert+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BA827964B5F0043C76C /* Alert+Error.swift */; };
 		526424872738607800B5F45B /* NewPostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526424862738607800B5F45B /* NewPostForm.swift */; };
@@ -33,7 +32,6 @@
 		5216384627153EDB00852F55 /* PostsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsList.swift; sourceTree = "<group>"; };
 		521638482715EE5300852F55 /* PostRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRow.swift; sourceTree = "<group>"; };
 		521F31502773EA0600EC1B26 /* PostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewModel.swift; sourceTree = "<group>"; };
-		522E78C1278A252B000FD13B /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		52310F3A2777BA7B004745AE /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		52536BA827964B5F0043C76C /* Alert+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Error.swift"; sourceTree = "<group>"; };
 		526424862738607800B5F45B /* NewPostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostForm.swift; sourceTree = "<group>"; };
@@ -64,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				520114612777AC7A00911B36 /* Loadable.swift */,
-				522E78C1278A252B000FD13B /* ErrorHandler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -246,7 +243,6 @@
 				52DA6904277FAA0B006FEB15 /* PostRowViewModel.swift in Sources */,
 				5264248D2738BE1600B5F45B /* PostsRepository.swift in Sources */,
 				521638492715EE5300852F55 /* PostRow.swift in Sources */,
-				522E78C2278A252B000FD13B /* ErrorHandler.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
 				5216384727153EDB00852F55 /* PostsList.swift in Sources */,
 				520114622777AC7A00911B36 /* Loadable.swift in Sources */,

@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @dynamicMemberLookup
-class PostRowViewModel: ObservableObject, ErrorHandler {
+class PostRowViewModel: ObservableObject {
     typealias Action = () async throws -> Void
     
     @Published var post: Post
@@ -28,11 +28,22 @@ class PostRowViewModel: ObservableObject, ErrorHandler {
         self.favoriteAction = favoriteAction
     }
     
-    nonisolated func deletePost() {
+    func deletePost() {
         withErrorHandlingTask(perform: deleteAction)
     }
     
-    nonisolated func favoritePost() {
+    func favoritePost() {
         withErrorHandlingTask(perform: favoriteAction)
+    }
+    
+    private func withErrorHandlingTask(perform action: @escaping Action) {
+        Task {
+            do {
+                try await action()
+            } catch {
+                print("[PostRowViewModel] Error: \(error)")
+                self.error = error
+            }
+        }
     }
 }
