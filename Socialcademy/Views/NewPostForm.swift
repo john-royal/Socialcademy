@@ -49,6 +49,6 @@ struct NewPostForm: View {
 
 struct NewPostForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewPostForm(viewModel: FormViewModel<Post>(initialValue: Post.testPost, action: { _ in }))
+        NewPostForm(viewModel: FormViewModel(initialValue: Post.testPost, action: { _ in }))
     }
 }

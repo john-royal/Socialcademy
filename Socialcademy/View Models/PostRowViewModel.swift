@@ -9,11 +9,13 @@ import Foundation
 
 @MainActor
 @dynamicMemberLookup
-class PostRowViewModel: ObservableObject, StateHandler {
+class PostRowViewModel: ObservableObject {
     typealias Action = () async throws -> Void
     
     @Published var post: Post
     @Published var error: Error?
+    
+    var canDeletePost: Bool { deleteAction != nil }
     
     subscript<T>(dynamicMember keyPath: KeyPath<Post, T>) -> T {
         post[keyPath: keyPath]
@@ -28,18 +30,25 @@ class PostRowViewModel: ObservableObject, StateHandler {
         self.favoriteAction = favoriteAction
     }
     
-    func canDeletePost() -> Bool {
-        deleteAction != nil
-    }
-    
-    nonisolated func deletePost() {
+    func deletePost() {
         guard let deleteAction = deleteAction else {
             preconditionFailure("Cannot delete post: no delete action provided")
         }
-        withStateHandlingTask(perform: deleteAction)
+        withErrorHandlingTask(perform: deleteAction)
     }
     
-    nonisolated func favoritePost() {
-        withStateHandlingTask(perform: favoriteAction)
+    func favoritePost() {
+        withErrorHandlingTask(perform: favoriteAction)
+    }
+    
+    private func withErrorHandlingTask(perform action: @escaping Action) {
+        Task {
+            do {
+                try await action()
+            } catch {
+                print("[PostRowViewModel] Error: \(error)")
+                self.error = error
+            }
+        }
     }
 }
