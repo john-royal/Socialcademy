@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @dynamicMemberLookup
-class CommentRowViewModel: ObservableObject, StateHandler {
+class CommentRowViewModel: ObservableObject, ErrorHandler {
     typealias Action = () async throws -> Void
     
     @Published var comment: Comment
@@ -32,6 +32,6 @@ class CommentRowViewModel: ObservableObject, StateHandler {
         guard let deleteAction = deleteAction else {
             preconditionFailure("Cannot delete comment: no delete action provided")
         }
-        withStateHandlingTask(perform: deleteAction)
+        withErrorHandlingTask(perform: deleteAction)
     }
 }
