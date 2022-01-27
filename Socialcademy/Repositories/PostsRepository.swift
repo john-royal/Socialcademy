@@ -85,6 +85,12 @@ struct PostsRepository: PostsRepositoryProtocol {
     }
     
     func create(_ post: Post) async throws {
+        var post = post
+        if let imageFileURL = post.imageURL {
+            post.imageURL = try await StorageImage.create()
+                .putFile(from: imageFileURL)
+                .getDownloadURL()
+        }
         let document = postsReference.document(post.id.uuidString)
         try await document.setData(from: post)
     }
@@ -93,6 +99,8 @@ struct PostsRepository: PostsRepositoryProtocol {
         precondition(canDelete(post))
         let document = postsReference.document(post.id.uuidString)
         try await document.delete()
+        let image = post.imageURL.map(StorageImage.fromURL(_:))
+        try await image?.delete()
     }
     
     func favorite(_ post: Post) async throws {
