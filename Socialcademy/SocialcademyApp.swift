@@ -20,3 +20,9 @@ struct SocialcademyApp: App {
         }
     }
 }
+
+extension Date {
+    init() {
+        self.init(timeIntervalSince1970: 1641739260)
+    }
+}

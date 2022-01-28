@@ -18,7 +18,9 @@
 		522D5EBE270E2D720079BD1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBD270E2D720079BD1D /* FirebaseAnalytics */; };
 		522D5EC0270E2D720079BD1D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EBF270E2D720079BD1D /* FirebaseFirestore */; };
 		522D5EC4270E2D720079BD1D /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 522D5EC3270E2D720079BD1D /* FirebaseFirestoreSwift-Beta */; };
-		522E78C2278A252B000FD13B /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E78C1278A252B000FD13B /* ErrorHandler.swift */; };
+		522E78C2278A252B000FD13B /* StateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E78C1278A252B000FD13B /* StateHandler.swift */; };
+		522EB35227A26DDE000B6F8F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EB35127A26DDE000B6F8F /* ProfileViewModel.swift */; };
+		522EB35427A28615000B6F8F /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EB35327A28615000B6F8F /* ProfileImage.swift */; };
 		52310F3B2777BA7B004745AE /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52310F3A2777BA7B004745AE /* EmptyListView.swift */; };
 		5238D1AB278A35F200C00213 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E78C3278A2A7F000FD13B /* AuthView.swift */; };
 		5238D1AC278A35F400C00213 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522E78C4278A2A7F000FD13B /* ProfileView.swift */; };
@@ -57,11 +59,13 @@
 		52293ED2278BA442007F47C6 /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 		52293ED4278BA5E6007F47C6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		52293ED6278C7C45007F47C6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
-		522E78C1278A252B000FD13B /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		522E78C1278A252B000FD13B /* StateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateHandler.swift; sourceTree = "<group>"; };
 		522E78C3278A2A7F000FD13B /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		522E78C4278A2A7F000FD13B /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		522E78C7278A2A88000FD13B /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		522E78C9278A2E38000FD13B /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
+		522EB35127A26DDE000B6F8F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		522EB35327A28615000B6F8F /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		52310F3A2777BA7B004745AE /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 		5238D1B0278A361200C00213 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		52487A362783A56D0045C3C9 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -106,7 +110,7 @@
 		520114602777AC6F00911B36 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				522E78C1278A252B000FD13B /* ErrorHandler.swift */,
+				522E78C1278A252B000FD13B /* StateHandler.swift */,
 				52536BB2279658490043C76C /* Firestore+Extensions.swift */,
 				520114612777AC7A00911B36 /* Loadable.swift */,
 				526FD1CD27A0EB8900F582E8 /* StorageImage.swift */,
@@ -157,6 +161,7 @@
 				52293ED6278C7C45007F47C6 /* ViewModelFactory.swift */,
 				52293ED2278BA442007F47C6 /* FormViewModel.swift */,
 				521F31502773EA0600EC1B26 /* PostsViewModel.swift */,
+				522EB35127A26DDE000B6F8F /* ProfileViewModel.swift */,
 				52DA6903277FAA0B006FEB15 /* PostRowViewModel.swift */,
 				52536BB427965D3B0043C76C /* CommentsViewModel.swift */,
 				52536BB827965EFC0043C76C /* CommentRowViewModel.swift */,
@@ -171,6 +176,7 @@
 				52310F3A2777BA7B004745AE /* EmptyListView.swift */,
 				526FD1CF27A0EC3200F582E8 /* ImagePickerButton.swift */,
 				522E78C9278A2E38000FD13B /* PrimaryButtonStyle.swift */,
+				522EB35327A28615000B6F8F /* ProfileImage.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -323,17 +329,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				5216384527153DF900852F55 /* Post.swift in Sources */,
+				522EB35427A28615000B6F8F /* ProfileImage.swift in Sources */,
 				52293ED7278C7C45007F47C6 /* ViewModelFactory.swift in Sources */,
 				52DA6904277FAA0B006FEB15 /* PostRowViewModel.swift in Sources */,
 				5264248D2738BE1600B5F45B /* PostsRepository.swift in Sources */,
 				5238D1AB278A35F200C00213 /* AuthView.swift in Sources */,
 				521638492715EE5300852F55 /* PostRow.swift in Sources */,
-				522E78C2278A252B000FD13B /* ErrorHandler.swift in Sources */,
+				522E78C2278A252B000FD13B /* StateHandler.swift in Sources */,
 				52536BAD279656FE0043C76C /* CommentsList.swift in Sources */,
 				5238D1AD278A35F900C00213 /* PrimaryButtonStyle.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
 				526FD1CE27A0EB8900F582E8 /* StorageImage.swift in Sources */,
 				526FD1D027A0EC3200F582E8 /* ImagePickerButton.swift in Sources */,
+				522EB35227A26DDE000B6F8F /* ProfileViewModel.swift in Sources */,
 				52536BB527965D3B0043C76C /* CommentsViewModel.swift in Sources */,
 				52536BAF279657090043C76C /* CommentsRepository.swift in Sources */,
 				52487A372783A56D0045C3C9 /* MainTabView.swift in Sources */,
