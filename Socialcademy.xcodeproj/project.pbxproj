@@ -36,7 +36,7 @@
 		52536BB927965EFC0043C76C /* CommentRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52536BB827965EFC0043C76C /* CommentRowViewModel.swift */; };
 		526424872738607800B5F45B /* NewPostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526424862738607800B5F45B /* NewPostForm.swift */; };
 		5264248D2738BE1600B5F45B /* PostsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5264248C2738BE1600B5F45B /* PostsRepository.swift */; };
-		526FD1CE27A0EB8900F582E8 /* StorageImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FD1CD27A0EB8900F582E8 /* StorageImage.swift */; };
+		526FD1CE27A0EB8900F582E8 /* StorageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FD1CD27A0EB8900F582E8 /* StorageFile.swift */; };
 		526FD1D027A0EC3200F582E8 /* ImagePickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FD1CF27A0EC3200F582E8 /* ImagePickerButton.swift */; };
 		52C9092927A0EB100087049B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 52C9092827A0EB100087049B /* FirebaseStorage */; };
 		52C9092B27A0EB100087049B /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 52C9092A27A0EB100087049B /* FirebaseStorageSwift-Beta */; };
@@ -74,7 +74,7 @@
 		52536BB827965EFC0043C76C /* CommentRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRowViewModel.swift; sourceTree = "<group>"; };
 		526424862738607800B5F45B /* NewPostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostForm.swift; sourceTree = "<group>"; };
 		5264248C2738BE1600B5F45B /* PostsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRepository.swift; sourceTree = "<group>"; };
-		526FD1CD27A0EB8900F582E8 /* StorageImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageImage.swift; sourceTree = "<group>"; };
+		526FD1CD27A0EB8900F582E8 /* StorageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFile.swift; sourceTree = "<group>"; };
 		526FD1CF27A0EC3200F582E8 /* ImagePickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerButton.swift; sourceTree = "<group>"; };
 		526FD1D127A1FAC200F582E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52D510D7279086960014339F /* Alert+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Error.swift"; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 				522E78C1278A252B000FD13B /* ErrorHandler.swift */,
 				52536BB2279658490043C76C /* Firestore+Extensions.swift */,
 				520114612777AC7A00911B36 /* Loadable.swift */,
-				526FD1CD27A0EB8900F582E8 /* StorageImage.swift */,
+				526FD1CD27A0EB8900F582E8 /* StorageFile.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -332,7 +332,7 @@
 				52536BAD279656FE0043C76C /* CommentsList.swift in Sources */,
 				5238D1AD278A35F900C00213 /* PrimaryButtonStyle.swift in Sources */,
 				52D6F9DD270CDBC2009B9E39 /* SocialcademyApp.swift in Sources */,
-				526FD1CE27A0EB8900F582E8 /* StorageImage.swift in Sources */,
+				526FD1CE27A0EB8900F582E8 /* StorageFile.swift in Sources */,
 				526FD1D027A0EC3200F582E8 /* ImagePickerButton.swift in Sources */,
 				52536BB527965D3B0043C76C /* CommentsViewModel.swift in Sources */,
 				52536BAF279657090043C76C /* CommentsRepository.swift in Sources */,
