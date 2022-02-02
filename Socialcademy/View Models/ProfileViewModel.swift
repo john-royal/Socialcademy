@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class ProfileViewModel: ObservableObject, StateHandler {
+class ProfileViewModel: ObservableObject, StateManager {
     @Published var name: String
     @Published var imageURL: URL? {
         didSet {
@@ -27,50 +27,13 @@ class ProfileViewModel: ObservableObject, StateHandler {
     }
     
     func signOut() {
-        withStateHandlingTask(perform: authService.signOut)
+        withStateManagingTask(perform: authService.signOut)
     }
     
-private func imageURLDidChange(from oldValue: URL?) {
-    guard imageURL != oldValue else { return }
-    withStateHandlingTask { [self] in
-        try await authService.updateProfileImage(to: imageURL)
-    }
-}
-}
-
-@MainActor
-@dynamicMemberLookup
-class ProfileViewModelComplete: ObservableObject, StateHandler {
-    @Published var user: User {
-        didSet {
-            userDidChange(from: oldValue)
-        }
-    }
-    @Published var error: Error?
-    @Published var isWorking = false
-    
-    subscript<T>(dynamicMember keyPath: WritableKeyPath<User, T>) -> T {
-        get { user[keyPath: keyPath] }
-        set { user[keyPath: keyPath] = newValue }
-    }
-    
-    private let authService: AuthService
-    
-    init(user: User, authService: AuthService) {
-        self.user = user
-        self.authService = authService
-        
-        authService.$user.replaceNil(with: user).assign(to: &$user)
-    }
-    
-    func signOut() {
-        withStateHandlingTask(perform: authService.signOut)
-    }
-    
-    private func userDidChange(from oldValue: User) {
-        guard user.imageURL != oldValue.imageURL else { return }
-        withStateHandlingTask { [self] in
-            try await authService.updateProfileImage(to: user.imageURL)
+    private func imageURLDidChange(from oldValue: URL?) {
+        guard imageURL != oldValue else { return }
+        withStateManagingTask { [self] in
+            try await authService.updateProfileImage(to: imageURL)
         }
     }
 }

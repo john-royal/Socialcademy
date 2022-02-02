@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @dynamicMemberLookup
-class FormViewModel<Value>: ObservableObject, StateHandler {
+class FormViewModel<Value>: ObservableObject, StateManager {
     typealias Action = (Value) async throws -> Void
     
     @Published var value: Value
@@ -28,9 +28,9 @@ class FormViewModel<Value>: ObservableObject, StateHandler {
         self.action = action
     }
     
-nonisolated func submit() {
-    withStateHandlingTask { [self] in
-        try await action(value)
+    nonisolated func submit() {
+        withStateManagingTask { [self] in
+            try await action(value)
+        }
     }
-}
 }

@@ -8,28 +8,28 @@
 import Foundation
 
 @MainActor
-protocol StateHandler: AnyObject {
+protocol StateManager: AnyObject {
     var error: Error? { get set }
     var isWorking: Bool { get set }
 }
 
-extension StateHandler {
+extension StateManager {
     var isWorking: Bool {
         get { false }
         set {}
     }
 }
 
-extension StateHandler {
+extension StateManager {
     typealias Action = () async throws -> Void
     
-nonisolated func withStateHandlingTask(perform action: @escaping Action) {
-    Task {
-        await withStateHandling(perform: action)
+    nonisolated func withStateManagingTask(perform action: @escaping Action) {
+        Task {
+            await withStateManagement(perform: action)
+        }
     }
-}
     
-    private func withStateHandling(perform action: @escaping Action) async {
+    private func withStateManagement(perform action: @escaping Action) async {
         isWorking = true
         do {
             try await action()
