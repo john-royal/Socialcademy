@@ -110,9 +110,9 @@
 		520114602777AC6F00911B36 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				522E78C1278A252B000FD13B /* StateHandler.swift */,
 				52536BB2279658490043C76C /* Firestore+Extensions.swift */,
 				520114612777AC7A00911B36 /* Loadable.swift */,
+				522E78C1278A252B000FD13B /* StateHandler.swift */,
 				526FD1CD27A0EB8900F582E8 /* StorageImage.swift */,
 			);
 			path = Utilities;
