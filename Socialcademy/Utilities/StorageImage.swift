@@ -9,8 +9,6 @@ import Foundation
 import FirebaseStorage
 import FirebaseStorageSwift
 
-private let storage = Storage.storage()
-
 struct StorageImage {
     private let imageReference: StorageReference
     
@@ -29,9 +27,12 @@ struct StorageImage {
 }
 
 extension StorageImage {
-    init(namespace: String, identifier: String) {
+    private static let storage = Storage.storage()
+    
+    static func with(namespace: String, identifier: String) -> StorageImage {
         let path = "images/\(namespace)/\(identifier)"
-        self.imageReference = storage.reference().child(path)
+        let imageReference = storage.reference().child(path)
+        return StorageImage(imageReference: imageReference)
     }
     
     static func fromURL(_ imageURL: URL) -> StorageImage {

@@ -87,7 +87,8 @@ struct PostsRepository: PostsRepositoryProtocol {
     func create(_ post: Post) async throws {
         var post = post
         if let imageFileURL = post.imageURL {
-            post.imageURL = try await StorageImage(namespace: "posts", identifier: post.id.uuidString)
+            post.imageURL = try await StorageImage
+                .with(namespace: "posts", identifier: post.id.uuidString)
                 .putFile(from: imageFileURL)
                 .getDownloadURL()
         }

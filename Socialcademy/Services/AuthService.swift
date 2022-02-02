@@ -35,16 +35,18 @@ class AuthService: ObservableObject {
     }
     
     func updateProfileImage(to imageFileURL: URL?) async throws {
-        guard let firebaseUser = auth.currentUser else {
+        guard let user = auth.currentUser else {
             preconditionFailure("Cannot update profile for nil user")
         }
         guard let imageFileURL = imageFileURL else {
-            return try await firebaseUser.updateProfile(\.photoURL, to: nil)
+            try await user.updateProfile(\.photoURL, to: nil)
+            return
         }
-        let imageURL = try await StorageImage(namespace: "users", identifier: firebaseUser.uid)
+        async let newPhotoURL = StorageImage
+            .with(namespace: "users", identifier: user.uid)
             .putFile(from: imageFileURL)
             .getDownloadURL()
-        try await firebaseUser.updateProfile(\.photoURL, to: imageURL)
+        try await user.updateProfile(\.photoURL, to: newPhotoURL)
     }
 }
 
