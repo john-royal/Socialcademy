@@ -42,7 +42,7 @@ class AuthService: ObservableObject {
             try await user.updateProfile(\.photoURL, to: nil)
             return
         }
-        async let newPhotoURL = StorageImage
+        async let newPhotoURL = StorageFile
             .with(namespace: "users", identifier: user.uid)
             .putFile(from: imageFileURL)
             .getDownloadURL()
