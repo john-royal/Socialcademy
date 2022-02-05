@@ -20,14 +20,14 @@ class AuthService: ObservableObject {
         }
     }
     
-    func signIn(email: String, password: String) async throws {
-        try await auth.signIn(withEmail: email, password: password)
-    }
-    
     func createAccount(name: String, email: String, password: String) async throws {
         let result = try await auth.createUser(withEmail: email, password: password)
         try await result.user.updateProfile(\.displayName, to: name)
         user?.name = name
+    }
+    
+    func signIn(email: String, password: String) async throws {
+        try await auth.signIn(withEmail: email, password: password)
     }
     
     func signOut() throws {
@@ -40,6 +40,9 @@ class AuthService: ObservableObject {
         }
         guard let imageFileURL = imageFileURL else {
             try await user.updateProfile(\.photoURL, to: nil)
+            if let photoURL = user.photoURL {
+                try await StorageFile.atURL(photoURL).delete()
+            }
             return
         }
         async let newPhotoURL = StorageFile
